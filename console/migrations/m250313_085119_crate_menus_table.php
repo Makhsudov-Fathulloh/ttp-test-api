@@ -18,8 +18,6 @@ class m250313_085119_crate_menus_table extends Migration
             'created_at' => $this->integer()->notNull(),
             'updated_at' => $this->integer()->notNull(),
             'deleted_at' => $this->integer(),
-
-            'menu_items' => $this->json(),
         ]);
 
         $this->batchInsert('{{%menus}}', [

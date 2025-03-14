@@ -12,7 +12,7 @@ class m250313_113555_crate_menu_items_table extends Migration
         $this->createTable("menu_items", [
             'id' => $this->primaryKey(),
             'menu_id' => $this->integer()->notNull(),
-            'title' => $this->json()->notNull(),
+            'title' => $this->string()->notNull(),
             'url' => $this->string(255)->defaultValue('#'),
             'file_id' => $this->integer(),
             'sort' => $this->integer(),
@@ -22,8 +22,6 @@ class m250313_113555_crate_menu_items_table extends Migration
             'created_at' => $this->integer()->notNull(),
             'updated_at' => $this->integer()->notNull(),
             'deleted_at' => $this->integer(),
-
-            'menu_items' => $this->json(),
         ]);
 
         $this->createIndex(
@@ -67,7 +65,7 @@ class m250313_113555_crate_menu_items_table extends Migration
             'menu_items',
             'menu_id_parent_id',
             'menu_items',
-            'menu_id',
+            'id',
             'CASCADE'
         );
     }
