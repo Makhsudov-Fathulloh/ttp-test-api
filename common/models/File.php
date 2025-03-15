@@ -25,8 +25,6 @@ use Yii;
  */
 class File extends \yii\db\ActiveRecord
 {
-
-
     /**
      * {@inheritdoc}
      */

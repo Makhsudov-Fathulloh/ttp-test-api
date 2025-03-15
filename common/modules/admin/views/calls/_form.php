@@ -4,21 +4,17 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /** @var yii\web\View $this */
-/** @var common\models\Widget $model */
+/** @var common\models\Calls $model */
 /** @var yii\widgets\ActiveForm $form */
 ?>
 
-<div class="widgets-form">
+<div class="calls-form">
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'count')->textInput() ?>
 
-    <?= $form->field($model, 'alias')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'type')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'status')->textInput() ?>
+    <?= $form->field($model, 'ball')->textInput() ?>
     <br>
 
     <div class="form-group">

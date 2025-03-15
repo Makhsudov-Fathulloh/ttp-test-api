@@ -5,30 +5,25 @@ namespace common\models;
 use Yii;
 
 /**
- * This is the model class for table "station".
+ * This is the model class for table "setting".
  *
  * @property int $id
  * @property string|null $title
- * @property string|null $slug
- * @property string|null $address
- * @property string|null $phone
- * @property string|null $fax
- * @property string|null $email
- * @property int|null $region_id
+ * @property string|null $alias
+ * @property string|null $value
+ * @property string|null $link
  * @property int|null $file_id
  * @property int|null $lang
  * @property string|null $lang_hash
- * @property string|null $lat
- * @property string|null $long
+ * @property int|null $sort
  * @property int|null $status
  * @property int $created_at
  * @property int $updated_at
  * @property int|null $deleted_at
  *
  * @property File $file
- * @property Region $region
  */
-class Station extends \yii\db\ActiveRecord
+class Setting extends \yii\db\ActiveRecord
 {
     const STATUS_DELETED = 0;
     const STATUS_INACTIVE = 9;
@@ -39,7 +34,7 @@ class Station extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'station';
+        return 'setting';
     }
 
     /**
@@ -48,15 +43,13 @@ class Station extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['title', 'slug', 'address', 'phone', 'fax', 'email', 'region_id', 'file_id', 'lang', 'lang_hash', 'lat', 'long', 'deleted_at'], 'default', 'value' => null],
+            [['title', 'alias', 'value', 'link', 'file_id', 'lang', 'lang_hash', 'sort', 'deleted_at'], 'default', 'value' => null],
             [['status'], 'default', 'value' => 9],
-            [['region_id', 'file_id', 'lang', 'status', 'created_at', 'updated_at', 'deleted_at'], 'integer'],
+            [['file_id', 'lang', 'sort', 'status', 'created_at', 'updated_at', 'deleted_at'], 'integer'],
             [['created_at', 'updated_at'], 'required'],
-            [['title', 'slug', 'address', 'fax', 'email', 'lat', 'long'], 'string', 'max' => 255],
-            [['phone'], 'string', 'max' => 16],
+            [['title', 'alias', 'value', 'link'], 'string', 'max' => 255],
             [['lang_hash'], 'string', 'max' => 32],
             [['file_id'], 'exist', 'skipOnError' => true, 'targetClass' => File::class, 'targetAttribute' => ['file_id' => 'id']],
-            [['region_id'], 'exist', 'skipOnError' => true, 'targetClass' => Region::class, 'targetAttribute' => ['region_id' => 'id']],
         ];
     }
 
@@ -68,17 +61,13 @@ class Station extends \yii\db\ActiveRecord
         return [
             'id' => Yii::t('app', 'ID'),
             'title' => Yii::t('app', 'Title'),
-            'slug' => Yii::t('app', 'Slug'),
-            'address' => Yii::t('app', 'Address'),
-            'phone' => Yii::t('app', 'Phone'),
-            'fax' => Yii::t('app', 'Fax'),
-            'email' => Yii::t('app', 'Email'),
-            'region_id' => Yii::t('app', 'Region ID'),
+            'alias' => Yii::t('app', 'Alias'),
+            'value' => Yii::t('app', 'Value'),
+            'link' => Yii::t('app', 'Link'),
             'file_id' => Yii::t('app', 'File ID'),
             'lang' => Yii::t('app', 'Lang'),
             'lang_hash' => Yii::t('app', 'Lang Hash'),
-            'lat' => Yii::t('app', 'Lat'),
-            'long' => Yii::t('app', 'Long'),
+            'sort' => Yii::t('app', 'Sort'),
             'status' => Yii::t('app', 'Status'),
             'created_at' => Yii::t('app', 'Created At'),
             'updated_at' => Yii::t('app', 'Updated At'),
@@ -97,22 +86,12 @@ class Station extends \yii\db\ActiveRecord
     }
 
     /**
-     * Gets query for [[Region]].
-     *
-     * @return \yii\db\ActiveQuery|\common\models\query\RegionQuery
-     */
-    public function getRegion()
-    {
-        return $this->hasOne(Region::class, ['id' => 'region_id']);
-    }
-
-    /**
      * {@inheritdoc}
-     * @return \common\models\query\StationQuery the active query used by this AR class.
+     * @return \common\models\query\SettingQuery the active query used by this AR class.
      */
     public static function find()
     {
-        return new \common\models\query\StationQuery(get_called_class());
+        return new \common\models\query\SettingQuery(get_called_class());
     }
 
 }

@@ -20,7 +20,9 @@ use Yii;
  */
 class Region extends \yii\db\ActiveRecord
 {
-
+    const STATUS_DELETED = 0;
+    const STATUS_INACTIVE = 9;
+    const STATUS_ACTIVE = 10;
 
     /**
      * {@inheritdoc}
