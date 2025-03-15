@@ -22,7 +22,6 @@ class m250312_120737_create_file_table extends Migration
             'folder' => $this->string(255),
             'domain' => $this->string(255),
             'user_id' => $this->integer(),
-            'folder_id' => $this->integer(),
             'path' => $this->string(),
             'size' => $this->integer(),
 
@@ -30,21 +29,6 @@ class m250312_120737_create_file_table extends Migration
             'updated_at' => $this->integer()->notNull(),
             'downloads' => $this->integer(),
         ]);
-
-        $this->createIndex(
-            'idx-file-folder_id',
-            'file',
-            'folder_id'
-        );
-
-        $this->addForeignKey(
-            'fk-file-folder_id',
-            'file',
-            'folder_id',
-            'folders',
-            'id',
-            'CASCADE'
-        );
     }
 
     /**
@@ -52,16 +36,6 @@ class m250312_120737_create_file_table extends Migration
      */
     public function safeDown()
     {
-        $this->dropForeignKey(
-            'fk-file-folder_id',
-            '{{%file}}'
-        );
-
-        $this->dropIndex(
-            'idx-file-folder_id',
-            '{{%file}}'
-        );
-
         $this->dropTable('{{%file}}');
     }
 }

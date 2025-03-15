@@ -2,17 +2,17 @@
 
 namespace common\modules\admin\controllers;
 
-use common\models\Menus;
-use common\models\search\MenusSearch;
+use common\models\Menu;
+use common\models\search\MenuSearch;
 use Yii;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * MenusController implements the CRUD actions for Menus model.
+ * MenuController implements the CRUD actions for Menu model.
  */
-class MenusController extends Controller
+class MenuController extends Controller
 {
     /**
      * @inheritDoc
@@ -33,13 +33,13 @@ class MenusController extends Controller
     }
 
     /**
-     * Lists all Menus models.
+     * Lists all Menu models.
      *
      * @return string
      */
     public function actionIndex()
     {
-        $searchModel = new MenusSearch();
+        $searchModel = new MenuSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
         return $this->render('index', [
@@ -49,7 +49,7 @@ class MenusController extends Controller
     }
 
     /**
-     * Displays a single Menus model.
+     * Displays a single Menu model.
      * @param int $id ID
      * @return string
      * @throws NotFoundHttpException if the model cannot be found
@@ -62,13 +62,13 @@ class MenusController extends Controller
     }
 
     /**
-     * Creates a new Menus model.
+     * Creates a new Menu model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return string|\yii\web\Response
      */
     public function actionCreate()
     {
-        $model = new Menus();
+        $model = new Menu();
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
@@ -84,7 +84,7 @@ class MenusController extends Controller
     }
 
     /**
-     * Updates an existing Menus model.
+     * Updates an existing Menu model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param int $id ID
      * @return string|\yii\web\Response
@@ -104,7 +104,7 @@ class MenusController extends Controller
     }
 
     /**
-     * Deletes an existing Menus model.
+     * Deletes an existing Menu model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param int $id ID
      * @return \yii\web\Response
@@ -118,15 +118,15 @@ class MenusController extends Controller
     }
 
     /**
-     * Finds the Menus model based on its primary key value.
+     * Finds the Menu model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param int $id ID
-     * @return Menus the loaded model
+     * @return Menu the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Menus::findOne(['id' => $id])) !== null) {
+        if (($model = Menu::findOne(['id' => $id])) !== null) {
             return $model;
         }
 

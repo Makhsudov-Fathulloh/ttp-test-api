@@ -3,16 +3,16 @@
 use yii\db\Migration;
 
 /**
- * Handles the creation of table `{{%widget_items}}`.
+ * Handles the creation of table `{{%widget_item}}`.
  */
-class m250314_183547_create_widget_items_table extends Migration
+class m250314_183547_create_widget_item_table extends Migration
 {
     /**
      * {@inheritdoc}
      */
     public function safeUp()
     {
-        $this->createTable('{{%widget_items}}', [
+        $this->createTable('{{%widget_item}}', [
             'id' => $this->primaryKey(),
             'widget_id' => $this->integer()->notNull(),
             'title' => $this->string(255),
@@ -29,29 +29,29 @@ class m250314_183547_create_widget_items_table extends Migration
         ]);
 
         $this->createIndex(
-            'idx-widget_items-widget_id',
-            'widget_items',
+            'idx-widget_item-widget_id',
+            'widget_item',
             'widget_id'
         );
 
         $this->addForeignKey(
-            'fk-widget_items-widget_id',
-            'widget_items',
+            'fk-widget_item-widget_id',
+            'widget_item',
             'widget_id',
-            'widgets',
+            'widget',
             'id',
             'CASCADE'
         );
 
         $this->createIndex(
-            'idx-widget_items-file_id',
-            'widget_items',
+            'idx-widget_item-file_id',
+            'widget_item',
             'file_id'
         );
 
         $this->addForeignKey(
-            'fk-widget_items-file_id',
-            'widget_items',
+            'fk-widget_item-file_id',
+            'widget_item',
             'file_id',
             'file',
             'id',
@@ -59,16 +59,16 @@ class m250314_183547_create_widget_items_table extends Migration
         );
 
         $this->createIndex(
-            'idx-widget_items-parent_id',
-            'widget_items',
+            'idx-widget_item-parent_id',
+            'widget_item',
             'parent_id'
         );
 
         $this->addForeignKey(
-            'fk-widget_items-parent_id',
-            'widget_items',
+            'fk-widget_item-parent_id',
+            'widget_item',
             'parent_id',
-            'widget_items',
+            'widget_item',
             'id',
             'CASCADE'
         );
@@ -80,35 +80,35 @@ class m250314_183547_create_widget_items_table extends Migration
     public function safeDown()
     {
         $this->dropForeignKey(
-            'fk-widget_items-widget_id',
-            '{{%widget_items}}'
+            'fk-widget_item-widget_id',
+            '{{%widget_item}}'
         );
 
         $this->dropIndex(
-            'idx-widget_items-widget_id',
-            '{{%widget_items}}'
+            'idx-widget_item-widget_id',
+            '{{%widget_item}}'
         );
 
         $this->dropForeignKey(
-            'fk-widget_items-file_id',
-            '{{%widget_items}}'
+            'fk-widget_item-file_id',
+            '{{%widget_item}}'
         );
 
         $this->dropIndex(
-            'idx-widget_items-file_id',
-            '{{%widget_items}}'
+            'idx-widget_item-file_id',
+            '{{%widget_item}}'
         );
 
         $this->dropForeignKey(
-            'fk-widget_items-parent_id',
-            '{{%widget_items}}'
+            'fk-widget_item-parent_id',
+            '{{%widget_item}}'
         );
 
         $this->dropIndex(
-            'idx-widget_items-parent_id',
-            '{{%widget_items}}'
+            'idx-widget_item-parent_id',
+            '{{%widget_item}}'
         );
 
-        $this->dropTable('{{%widget_items}}');
+        $this->dropTable('{{%widget_item}}');
     }
 }

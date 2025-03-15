@@ -4,12 +4,12 @@ namespace common\models\search;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use common\models\Banners;
+use common\models\Banner;
 
 /**
- * BannersSearch represents the model behind the search form of `common\models\Banners`.
+ * BannerSearch represents the model behind the search form of `common\models\Banner`.
  */
-class BannersSearch extends Banners
+class BannerSearch extends Banner
 {
     /**
      * {@inheritdoc}
@@ -41,7 +41,7 @@ class BannersSearch extends Banners
      */
     public function search($params, $formName = null)
     {
-        $query = Banners::find();
+        $query = Banner::find();
 
         // add conditions that should always apply here
 

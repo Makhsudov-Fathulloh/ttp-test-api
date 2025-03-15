@@ -2,17 +2,17 @@
 
 namespace common\modules\admin\controllers;
 
-use common\models\Banners;
-use common\models\search\BannersSearch;
+use common\models\Banner;
+use common\models\search\BannerSearch;
 use Yii;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * BannersController implements the CRUD actions for Banners model.
+ * BannerController implements the CRUD actions for Banner model.
  */
-class BannersController extends Controller
+class BannerController extends Controller
 {
     /**
      * @inheritDoc
@@ -33,13 +33,13 @@ class BannersController extends Controller
     }
 
     /**
-     * Lists all Banners models.
+     * Lists all Banner models.
      *
      * @return string
      */
     public function actionIndex()
     {
-        $searchModel = new BannersSearch();
+        $searchModel = new BannerSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
         return $this->render('index', [
@@ -49,7 +49,7 @@ class BannersController extends Controller
     }
 
     /**
-     * Displays a single Banners model.
+     * Displays a single Banner model.
      * @param int $id ID
      * @return string
      * @throws NotFoundHttpException if the model cannot be found
@@ -62,13 +62,13 @@ class BannersController extends Controller
     }
 
     /**
-     * Creates a new Banners model.
+     * Creates a new Banner model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return string|\yii\web\Response
      */
     public function actionCreate()
     {
-        $model = new Banners();
+        $model = new Banner();
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
@@ -84,7 +84,7 @@ class BannersController extends Controller
     }
 
     /**
-     * Updates an existing Banners model.
+     * Updates an existing Banner model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param int $id ID
      * @return string|\yii\web\Response
@@ -104,7 +104,7 @@ class BannersController extends Controller
     }
 
     /**
-     * Deletes an existing Banners model.
+     * Deletes an existing Banner model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param int $id ID
      * @return \yii\web\Response
@@ -118,15 +118,15 @@ class BannersController extends Controller
     }
 
     /**
-     * Finds the Banners model based on its primary key value.
+     * Finds the Banner model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param int $id ID
-     * @return Banners the loaded model
+     * @return Banner the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Banners::findOne(['id' => $id])) !== null) {
+        if (($model = Banner::findOne(['id' => $id])) !== null) {
             return $model;
         }
 

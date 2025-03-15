@@ -2,14 +2,14 @@
 
 use yii\db\Migration;
 
-class m250313_113555_crate_menu_items_table extends Migration
+class m250313_113555_crate_menu_item_table extends Migration
 {
     /**
      * {@inheritdoc}
      */
     public function safeUp()
     {
-        $this->createTable("menu_items", [
+        $this->createTable("menu_item", [
             'id' => $this->primaryKey(),
             'menu_id' => $this->integer()->notNull(),
             'title' => $this->string()->notNull(),
@@ -25,29 +25,29 @@ class m250313_113555_crate_menu_items_table extends Migration
         ]);
 
         $this->createIndex(
-            'idx-menu_items-menu_id',
-            'menu_items',
+            'idx-menu_item-menu_id',
+            'menu_item',
             'menu_id'
         );
 
         $this->addForeignKey(
-            'fk-menu_items-menu_id',
-            'menu_items',
+            'fk-menu_item-menu_id',
+            'menu_item',
             'menu_id',
-            'menus',
+            'menu',
             'id',
             'CASCADE'
         );
 
         $this->createIndex(
-            'idx-menu_items-file_id',
-            'menu_items',
+            'idx-menu_item-file_id',
+            'menu_item',
             'file_id'
         );
 
         $this->addForeignKey(
-            'fk-menu_items-file_id',
-            'menu_items',
+            'fk-menu_item-file_id',
+            'menu_item',
             'file_id',
             'file',
             'id',
@@ -55,16 +55,16 @@ class m250313_113555_crate_menu_items_table extends Migration
         );
 
         $this->createIndex(
-            'idx-menu_items-menu_id_parent_id',
-            'menu_items',
+            'idx-menu_item-menu_id_parent_id',
+            'menu_item',
             'menu_id_parent_id'
         );
 
         $this->addForeignKey(
-            'fk-menu_items-menu_id_parent_id',
-            'menu_items',
+            'fk-menu_item-menu_id_parent_id',
+            'menu_item',
             'menu_id_parent_id',
-            'menu_items',
+            'menu_item',
             'id',
             'CASCADE'
         );
@@ -76,35 +76,35 @@ class m250313_113555_crate_menu_items_table extends Migration
     public function safeDown()
     {
         $this->dropForeignKey(
-            'fk-menu_items-menu_id',
-            '{{%menu_items}}'
+            'fk-menu_item-menu_id',
+            '{{%menu_item}}'
         );
 
         $this->dropIndex(
-            'idx-menu_items-menu_id',
-            '{{%menu_items}}'
+            'idx-menu_item-menu_id',
+            '{{%menu_item}}'
         );
 
         $this->dropForeignKey(
-            'fk-menu_items-file_id',
-            '{{%menu_items}}'
+            'fk-menu_item-file_id',
+            '{{%menu_item}}'
         );
 
         $this->dropIndex(
-            'idx-menu_items-file_id',
-            '{{%menu_items}}'
+            'idx-menu_item-file_id',
+            '{{%menu_item}}'
         );
 
         $this->dropForeignKey(
-            'fk-menu_items-menu_id_parent_id',
-            '{{%menu_items}}'
+            'fk-menu_item-menu_id_parent_id',
+            '{{%menu_item}}'
         );
 
         $this->dropIndex(
-            'idx-menu_items-menu_id_parent_id',
-            '{{%menu_items}}'
+            'idx-menu_item-menu_id_parent_id',
+            '{{%menu_item}}'
         );
 
-        $this->dropTable("menu_items");
+        $this->dropTable("menu_item");
     }
 }

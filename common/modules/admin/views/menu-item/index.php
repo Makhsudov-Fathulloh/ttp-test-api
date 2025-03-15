@@ -1,13 +1,13 @@
 <?php
 
-use common\models\MenuItems;
+use common\models\MenuItem;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\grid\ActionColumn;
 use yii\grid\GridView;
 
 /** @var yii\web\View $this */
-/** @var common\models\search\MenuItemsSearch $searchModel */
+/** @var common\models\search\MenuItemSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
 $this->title = Yii::t('app', 'Menu Items');
@@ -39,7 +39,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'status',
             [
                 'class' => ActionColumn::class,
-                'urlCreator' => function ($action, MenuItems $model, $key, $index, $column) {
+                'urlCreator' => function ($action, MenuItem $model, $key, $index, $column) {
                     return Url::toRoute([$action, 'id' => $model->id]);
                  }
             ],

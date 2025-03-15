@@ -2,17 +2,17 @@
 
 namespace common\modules\admin\controllers;
 
-use common\models\Folders;
-use common\models\search\FoldersSearch;
+use common\models\History;
+use common\models\search\HistorySearch;
 use Yii;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * FoldersController implements the CRUD actions for Folders model.
+ * HistoryController implements the CRUD actions for History model.
  */
-class FoldersController extends Controller
+class HistoryController extends Controller
 {
     /**
      * @inheritDoc
@@ -33,13 +33,13 @@ class FoldersController extends Controller
     }
 
     /**
-     * Lists all Folders models.
+     * Lists all History models.
      *
      * @return string
      */
     public function actionIndex()
     {
-        $searchModel = new FoldersSearch();
+        $searchModel = new HistorySearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
         return $this->render('index', [
@@ -49,7 +49,7 @@ class FoldersController extends Controller
     }
 
     /**
-     * Displays a single Folders model.
+     * Displays a single History model.
      * @param int $id ID
      * @return string
      * @throws NotFoundHttpException if the model cannot be found
@@ -62,13 +62,13 @@ class FoldersController extends Controller
     }
 
     /**
-     * Creates a new Folders model.
+     * Creates a new History model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return string|\yii\web\Response
      */
     public function actionCreate()
     {
-        $model = new Folders();
+        $model = new History();
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
@@ -84,7 +84,7 @@ class FoldersController extends Controller
     }
 
     /**
-     * Updates an existing Folders model.
+     * Updates an existing History model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param int $id ID
      * @return string|\yii\web\Response
@@ -104,7 +104,7 @@ class FoldersController extends Controller
     }
 
     /**
-     * Deletes an existing Folders model.
+     * Deletes an existing History model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param int $id ID
      * @return \yii\web\Response
@@ -118,15 +118,15 @@ class FoldersController extends Controller
     }
 
     /**
-     * Finds the Folders model based on its primary key value.
+     * Finds the History model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param int $id ID
-     * @return Folders the loaded model
+     * @return History the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Folders::findOne(['id' => $id])) !== null) {
+        if (($model = History::findOne(['id' => $id])) !== null) {
             return $model;
         }
 

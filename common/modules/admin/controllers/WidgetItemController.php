@@ -2,17 +2,17 @@
 
 namespace common\modules\admin\controllers;
 
-use common\models\WidgetItems;
-use common\models\search\WidgetItemsSearch;
+use common\models\WidgetItem;
+use common\models\search\WidgetItemSearch;
 use Yii;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * WidgetItemsController implements the CRUD actions for WidgetItems model.
+ * WidgetItemController implements the CRUD actions for WidgetItem model.
  */
-class WidgetItemsController extends Controller
+class WidgetItemController extends Controller
 {
     /**
      * @inheritDoc
@@ -33,13 +33,13 @@ class WidgetItemsController extends Controller
     }
 
     /**
-     * Lists all WidgetItems models.
+     * Lists all WidgetItem models.
      *
      * @return string
      */
     public function actionIndex()
     {
-        $searchModel = new WidgetItemsSearch();
+        $searchModel = new WidgetItemSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
         return $this->render('index', [
@@ -49,7 +49,7 @@ class WidgetItemsController extends Controller
     }
 
     /**
-     * Displays a single WidgetItems model.
+     * Displays a single WidgetItem model.
      * @param int $id ID
      * @return string
      * @throws NotFoundHttpException if the model cannot be found
@@ -62,13 +62,13 @@ class WidgetItemsController extends Controller
     }
 
     /**
-     * Creates a new WidgetItems model.
+     * Creates a new WidgetItem model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return string|\yii\web\Response
      */
     public function actionCreate()
     {
-        $model = new WidgetItems();
+        $model = new WidgetItem();
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
@@ -84,7 +84,7 @@ class WidgetItemsController extends Controller
     }
 
     /**
-     * Updates an existing WidgetItems model.
+     * Updates an existing WidgetItem model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param int $id ID
      * @return string|\yii\web\Response
@@ -104,7 +104,7 @@ class WidgetItemsController extends Controller
     }
 
     /**
-     * Deletes an existing WidgetItems model.
+     * Deletes an existing WidgetItem model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param int $id ID
      * @return \yii\web\Response
@@ -118,15 +118,15 @@ class WidgetItemsController extends Controller
     }
 
     /**
-     * Finds the WidgetItems model based on its primary key value.
+     * Finds the WidgetItem model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param int $id ID
-     * @return WidgetItems the loaded model
+     * @return WidgetItem the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = WidgetItems::findOne(['id' => $id])) !== null) {
+        if (($model = WidgetItem::findOne(['id' => $id])) !== null) {
             return $model;
         }
 

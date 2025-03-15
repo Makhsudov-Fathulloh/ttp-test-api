@@ -1,24 +1,24 @@
 <?php
 
-use common\models\Folder;
+use common\models\History;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\grid\ActionColumn;
 use yii\grid\GridView;
 
 /** @var yii\web\View $this */
-/** @var common\models\search\FolderSearch $searchModel */
+/** @var common\models\search\HistorySearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
-$this->title = Yii::t('app', 'Folder');
+$this->title = Yii::t('app', 'Histories');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="folders-index">
+<div class="history-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a(Yii::t('app', 'Create Folder'), ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(Yii::t('app', 'Create History'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
@@ -31,12 +31,18 @@ $this->params['breadcrumbs'][] = $this->title;
 
             'id',
             'title',
-            'alias',
-            'parent_id',
+            'slug',
+            'description',
+            'type',
+            'file_id',
+            'documents',
+            'anons',
+            'content',
             'status',
+            'views',
             [
-                'class' => ActionColumn::class,
-                'urlCreator' => function ($action, Folder $model, $key, $index, $column) {
+                'class' => ActionColumn::className(),
+                'urlCreator' => function ($action, History $model, $key, $index, $column) {
                     return Url::toRoute([$action, 'id' => $model->id]);
                  }
             ],

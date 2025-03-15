@@ -2,17 +2,17 @@
 
 namespace common\modules\admin\controllers;
 
-use common\models\MenuItems;
-use common\models\search\MenuItemsSearch;
+use common\models\MenuItem;
+use common\models\search\MenuItemSearch;
 use Yii;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * MenuItemsController implements the CRUD actions for MenuItems model.
+ * MenuItemController implements the CRUD actions for MenuItem model.
  */
-class MenuItemsController extends Controller
+class MenuItemController extends Controller
 {
     /**
      * @inheritDoc
@@ -33,13 +33,13 @@ class MenuItemsController extends Controller
     }
 
     /**
-     * Lists all MenuItems models.
+     * Lists all MenuItem models.
      *
      * @return string
      */
     public function actionIndex()
     {
-        $searchModel = new MenuItemsSearch();
+        $searchModel = new MenuItemSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
         return $this->render('index', [
@@ -49,7 +49,7 @@ class MenuItemsController extends Controller
     }
 
     /**
-     * Displays a single MenuItems model.
+     * Displays a single MenuItem model.
      * @param int $id ID
      * @return string
      * @throws NotFoundHttpException if the model cannot be found
@@ -62,13 +62,13 @@ class MenuItemsController extends Controller
     }
 
     /**
-     * Creates a new MenuItems model.
+     * Creates a new MenuItem model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return string|\yii\web\Response
      */
     public function actionCreate()
     {
-        $model = new MenuItems();
+        $model = new MenuItem();
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
@@ -84,7 +84,7 @@ class MenuItemsController extends Controller
     }
 
     /**
-     * Updates an existing MenuItems model.
+     * Updates an existing MenuItem model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param int $id ID
      * @return string|\yii\web\Response
@@ -104,7 +104,7 @@ class MenuItemsController extends Controller
     }
 
     /**
-     * Deletes an existing MenuItems model.
+     * Deletes an existing MenuItem model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param int $id ID
      * @return \yii\web\Response
@@ -118,15 +118,15 @@ class MenuItemsController extends Controller
     }
 
     /**
-     * Finds the MenuItems model based on its primary key value.
+     * Finds the MenuItem model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param int $id ID
-     * @return MenuItems the loaded model
+     * @return MenuItem the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = MenuItems::findOne(['id' => $id])) !== null) {
+        if (($model = MenuItem::findOne(['id' => $id])) !== null) {
             return $model;
         }
 

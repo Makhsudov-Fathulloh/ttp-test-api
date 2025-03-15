@@ -3,11 +3,11 @@
 namespace common\models\query;
 
 /**
- * This is the ActiveQuery class for [[\common\models\Banners]].
+ * This is the ActiveQuery class for [[\common\models\Banner]].
  *
- * @see \common\models\Banners
+ * @see \common\models\Banner
  */
-class BannersQuery extends \yii\db\ActiveQuery
+class BannerQuery extends \yii\db\ActiveQuery
 {
     /*public function active()
     {
@@ -16,7 +16,7 @@ class BannersQuery extends \yii\db\ActiveQuery
 
     /**
      * {@inheritdoc}
-     * @return \common\models\Banners[]|array
+     * @return \common\models\Banner[]|array
      */
     public function all($db = null)
     {
@@ -25,7 +25,7 @@ class BannersQuery extends \yii\db\ActiveQuery
 
     /**
      * {@inheritdoc}
-     * @return \common\models\Banners|array|null
+     * @return \common\models\Banner|array|null
      */
     public function one($db = null)
     {

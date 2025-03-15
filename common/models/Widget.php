@@ -5,7 +5,7 @@ namespace common\models;
 use Yii;
 
 /**
- * This is the model class for table "widgets".
+ * This is the model class for table "widget".
  *
  * @property int $id
  * @property string|null $title
@@ -17,9 +17,9 @@ use Yii;
  * @property int $created_at
  * @property int $updated_at
  *
- * @property WidgetItems[] $widgetItems
+ * @property WidgetItem[] $widgetItems
  */
-class Widgets extends \yii\db\ActiveRecord
+class Widget extends \yii\db\ActiveRecord
 {
     const STATUS_DELETED = 0;
     const STATUS_INACTIVE = 9;
@@ -30,7 +30,7 @@ class Widgets extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'widgets';
+        return 'widget';
     }
 
     /**
@@ -67,22 +67,22 @@ class Widgets extends \yii\db\ActiveRecord
     }
 
     /**
-     * Gets query for [[WidgetItems]].
+     * Gets query for [[WidgetItem]].
      *
-     * @return \yii\db\ActiveQuery|\common\models\query\WidgetItemsQuery
+     * @return \yii\db\ActiveQuery|\common\models\query\WidgetItemQuery
      */
     public function getWidgetItems()
     {
-        return $this->hasMany(WidgetItems::class, ['widget_id' => 'id']);
+        return $this->hasMany(WidgetItem::class, ['widget_id' => 'id']);
     }
 
     /**
      * {@inheritdoc}
-     * @return \common\models\query\WidgetsQuery the active query used by this AR class.
+     * @return \common\models\query\WidgetQuery the active query used by this AR class.
      */
     public static function find()
     {
-        return new \common\models\query\WidgetsQuery(get_called_class());
+        return new \common\models\query\WidgetQuery(get_called_class());
     }
 
 }

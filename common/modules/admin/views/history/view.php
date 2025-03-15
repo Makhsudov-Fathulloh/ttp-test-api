@@ -4,14 +4,14 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /** @var yii\web\View $this */
-/** @var common\models\Folder $model */
+/** @var common\models\History $model */
 
 $this->title = $model->title;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Folder'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Histories'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
-<div class="folders-view">
+<div class="history-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
@@ -31,9 +31,15 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             'id',
             'title',
-            'alias',
-            'parent_id',
+            'slug',
+            'description',
+            'type',
+            'file_id',
+            'documents',
+            'anons',
+            'content',
             'status',
+            'views',
         ],
     ]) ?>
 

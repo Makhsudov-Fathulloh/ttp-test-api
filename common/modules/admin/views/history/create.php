@@ -3,13 +3,13 @@
 use yii\helpers\Html;
 
 /** @var yii\web\View $this */
-/** @var common\models\Folder $model */
+/** @var common\models\History $model */
 
-$this->title = Yii::t('app', 'Create Folder');
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Folder'), 'url' => ['index']];
+$this->title = Yii::t('app', 'Create History');
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Histories'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="folders-create">
+<div class="history-create">
 
     <h1><?= Html::encode($this->title) ?></h1>
 

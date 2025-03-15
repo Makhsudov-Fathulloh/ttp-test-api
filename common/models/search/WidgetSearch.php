@@ -4,12 +4,12 @@ namespace common\models\search;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use common\models\Widgets;
+use common\models\Widget;
 
 /**
- * WidgetsSearch represents the model behind the search form of `common\models\Widgets`.
+ * WidgetSearch represents the model behind the search form of `common\models\Widget`.
  */
-class WidgetsSearch extends Widgets
+class WidgetSearch extends Widget
 {
     /**
      * {@inheritdoc}
@@ -41,7 +41,7 @@ class WidgetsSearch extends Widgets
      */
     public function search($params, $formName = null)
     {
-        $query = Widgets::find();
+        $query = Widget::find();
 
         // add conditions that should always apply here
 

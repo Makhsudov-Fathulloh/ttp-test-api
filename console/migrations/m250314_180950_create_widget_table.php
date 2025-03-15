@@ -3,16 +3,16 @@
 use yii\db\Migration;
 
 /**
- * Handles the creation of table `{{%widgets}}`.
+ * Handles the creation of table `{{%widget}}`.
  */
-class m250314_180950_create_widgets_table extends Migration
+class m250314_180950_create_widget_table extends Migration
 {
     /**
      * {@inheritdoc}
      */
     public function safeUp()
     {
-        $this->createTable('{{%widgets}}', [
+        $this->createTable('{{%widget}}', [
             'id' => $this->primaryKey(),
             'title' => $this->string(255),
             'alias' => $this->string(255),
@@ -31,6 +31,6 @@ class m250314_180950_create_widgets_table extends Migration
      */
     public function safeDown()
     {
-        $this->dropTable('{{%widgets}}');
+        $this->dropTable('{{%widget}}');
     }
 }

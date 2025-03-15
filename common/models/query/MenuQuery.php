@@ -3,11 +3,11 @@
 namespace common\models\query;
 
 /**
- * This is the ActiveQuery class for [[\common\models\Menus]].
+ * This is the ActiveQuery class for [[\common\models\Menu]].
  *
- * @see \common\models\Menus
+ * @see \common\models\Menu
  */
-class MenusQuery extends \yii\db\ActiveQuery
+class MenuQuery extends \yii\db\ActiveQuery
 {
     /*public function active()
     {
@@ -16,7 +16,7 @@ class MenusQuery extends \yii\db\ActiveQuery
 
     /**
      * {@inheritdoc}
-     * @return \common\models\Menus[]|array
+     * @return \common\models\Menu[]|array
      */
     public function all($db = null)
     {
@@ -25,7 +25,7 @@ class MenusQuery extends \yii\db\ActiveQuery
 
     /**
      * {@inheritdoc}
-     * @return \common\models\Menus|array|null
+     * @return \common\models\Menu|array|null
      */
     public function one($db = null)
     {

@@ -20,11 +20,11 @@ use Yii;
  * @property int|null $deleted_at
  *
  * @property File $file
- * @property Menus $menu
- * @property MenuItems $menuIdParent
- * @property MenuItems[] $menuItems
+ * @property Menu $menu
+ * @property MenuItem $menuIdParent
+ * @property MenuItem[] $menuItems
  */
-class MenuItems extends \yii\db\ActiveRecord
+class MenuItem extends \yii\db\ActiveRecord
 {
     const STATUS_DELETED = 0;
     const STATUS_INACTIVE = 9;
@@ -35,7 +35,7 @@ class MenuItems extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'menu_items';
+        return 'menu_item';
     }
 
     /**
@@ -51,8 +51,8 @@ class MenuItems extends \yii\db\ActiveRecord
             [['menu_id', 'file_id', 'sort', 'menu_id_parent_id', 'status', 'created_at', 'updated_at', 'deleted_at'], 'integer'],
             [['url'], 'string', 'max' => 255],
             [['file_id'], 'exist', 'skipOnError' => true, 'targetClass' => File::class, 'targetAttribute' => ['file_id' => 'id']],
-            [['menu_id'], 'exist', 'skipOnError' => true, 'targetClass' => Menus::class, 'targetAttribute' => ['menu_id' => 'id']],
-            [['menu_id_parent_id'], 'exist', 'skipOnError' => true, 'targetClass' => MenuItems::class, 'targetAttribute' => ['menu_id_parent_id' => 'id']],
+            [['menu_id'], 'exist', 'skipOnError' => true, 'targetClass' => Menu::class, 'targetAttribute' => ['menu_id' => 'id']],
+            [['menu_id_parent_id'], 'exist', 'skipOnError' => true, 'targetClass' => MenuItem::class, 'targetAttribute' => ['menu_id_parent_id' => 'id']],
         ];
     }
 
@@ -89,40 +89,40 @@ class MenuItems extends \yii\db\ActiveRecord
     /**
      * Gets query for [[Menu]].
      *
-     * @return \yii\db\ActiveQuery|\common\models\query\MenusQuery
+     * @return \yii\db\ActiveQuery|\common\models\query\MenuQuery
      */
     public function getMenu()
     {
-        return $this->hasOne(Menus::class, ['id' => 'menu_id']);
+        return $this->hasOne(Menu::class, ['id' => 'menu_id']);
     }
 
     /**
      * Gets query for [[MenuIdParent]].
      *
-     * @return \yii\db\ActiveQuery|\common\models\query\MenuItemsQuery
+     * @return \yii\db\ActiveQuery|\common\models\query\MenuItemQuery
      */
     public function getMenuIdParent()
     {
-        return $this->hasOne(MenuItems::class, ['id' => 'menu_id_parent_id']);
+        return $this->hasOne(MenuItem::class, ['id' => 'menu_id_parent_id']);
     }
 
     /**
-     * Gets query for [[MenuItems]].
+     * Gets query for [[MenuItem]].
      *
-     * @return \yii\db\ActiveQuery|\common\models\query\MenuItemsQuery
+     * @return \yii\db\ActiveQuery|\common\models\query\MenuItemQuery
      */
     public function getMenuItems()
     {
-        return $this->hasMany(MenuItems::class, ['menu_id_parent_id' => 'id']);
+        return $this->hasMany(MenuItem::class, ['menu_id_parent_id' => 'id']);
     }
 
     /**
      * {@inheritdoc}
-     * @return \common\models\query\MenuItemsQuery the active query used by this AR class.
+     * @return \common\models\query\MenuItemQuery the active query used by this AR class.
      */
     public static function find()
     {
-        return new \common\models\query\MenuItemsQuery(get_called_class());
+        return new \common\models\query\MenuItemQuery(get_called_class());
     }
 
 }

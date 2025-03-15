@@ -4,12 +4,12 @@ namespace common\models\search;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use common\models\Folders;
+use common\models\History;
 
 /**
- * FoldersSearch represents the model behind the search form of `common\models\Folders`.
+ * HistorySearch represents the model behind the search form of `common\models\History`.
  */
-class FoldersSearch extends Folders
+class HistorySearch extends History
 {
     /**
      * {@inheritdoc}
@@ -17,8 +17,8 @@ class FoldersSearch extends Folders
     public function rules()
     {
         return [
-            [['id', 'parent_id', 'status', 'created_at', 'updated_at', 'deleted_at'], 'integer'],
-            [['title', 'alias'], 'safe'],
+            [['id', 'type', 'file_id', 'lang', 'status', 'views', 'created_at', 'updated_at', 'deleted_at'], 'integer'],
+            [['title', 'slug', 'description', 'documents', 'anons', 'content', 'lang_hash'], 'safe'],
         ];
     }
 
@@ -41,7 +41,7 @@ class FoldersSearch extends Folders
      */
     public function search($params, $formName = null)
     {
-        $query = Folders::find();
+        $query = History::find();
 
         // add conditions that should always apply here
 
@@ -60,15 +60,23 @@ class FoldersSearch extends Folders
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'parent_id' => $this->parent_id,
+            'type' => $this->type,
+            'file_id' => $this->file_id,
+            'lang' => $this->lang,
             'status' => $this->status,
+            'views' => $this->views,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
             'deleted_at' => $this->deleted_at,
         ]);
 
         $query->andFilterWhere(['like', 'title', $this->title])
-            ->andFilterWhere(['like', 'alias', $this->alias]);
+            ->andFilterWhere(['like', 'slug', $this->slug])
+            ->andFilterWhere(['like', 'description', $this->description])
+            ->andFilterWhere(['like', 'documents', $this->documents])
+            ->andFilterWhere(['like', 'anons', $this->anons])
+            ->andFilterWhere(['like', 'content', $this->content])
+            ->andFilterWhere(['like', 'lang_hash', $this->lang_hash]);
 
         return $dataProvider;
     }

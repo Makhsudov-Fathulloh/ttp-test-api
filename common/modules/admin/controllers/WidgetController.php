@@ -2,17 +2,17 @@
 
 namespace common\modules\admin\controllers;
 
-use common\models\Widgets;
-use common\models\search\WidgetsSearch;
+use common\models\Widget;
+use common\models\search\WidgetSearch;
 use Yii;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * WidgetsController implements the CRUD actions for Widgets model.
+ * WidgetController implements the CRUD actions for Widget model.
  */
-class WidgetsController extends Controller
+class WidgetController extends Controller
 {
     /**
      * @inheritDoc
@@ -33,13 +33,13 @@ class WidgetsController extends Controller
     }
 
     /**
-     * Lists all Widgets models.
+     * Lists all Widget models.
      *
      * @return string
      */
     public function actionIndex()
     {
-        $searchModel = new WidgetsSearch();
+        $searchModel = new WidgetSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
         return $this->render('index', [
@@ -49,7 +49,7 @@ class WidgetsController extends Controller
     }
 
     /**
-     * Displays a single Widgets model.
+     * Displays a single Widget model.
      * @param int $id ID
      * @return string
      * @throws NotFoundHttpException if the model cannot be found
@@ -62,13 +62,13 @@ class WidgetsController extends Controller
     }
 
     /**
-     * Creates a new Widgets model.
+     * Creates a new Widget model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return string|\yii\web\Response
      */
     public function actionCreate()
     {
-        $model = new Widgets();
+        $model = new Widget();
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
@@ -84,7 +84,7 @@ class WidgetsController extends Controller
     }
 
     /**
-     * Updates an existing Widgets model.
+     * Updates an existing Widget model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param int $id ID
      * @return string|\yii\web\Response
@@ -104,7 +104,7 @@ class WidgetsController extends Controller
     }
 
     /**
-     * Deletes an existing Widgets model.
+     * Deletes an existing Widget model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param int $id ID
      * @return \yii\web\Response
@@ -118,15 +118,15 @@ class WidgetsController extends Controller
     }
 
     /**
-     * Finds the Widgets model based on its primary key value.
+     * Finds the Widget model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param int $id ID
-     * @return Widgets the loaded model
+     * @return Widget the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Widgets::findOne(['id' => $id])) !== null) {
+        if (($model = Widget::findOne(['id' => $id])) !== null) {
             return $model;
         }
 

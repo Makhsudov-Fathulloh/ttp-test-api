@@ -21,11 +21,11 @@ use Yii;
  * @property int|null $deleted_at
  *
  * @property File $file
- * @property WidgetItems $parent
- * @property Widgets $widgets
- * @property WidgetItems[] $widgetItems
+ * @property WidgetItem $parent
+ * @property Widget $widget
+ * @property WidgetItem[] $widgetItems
  */
-class WidgetItems extends \yii\db\ActiveRecord
+class WidgetItem extends \yii\db\ActiveRecord
 {
 
 
@@ -34,7 +34,7 @@ class WidgetItems extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'widget_items';
+        return 'widget_item';
     }
 
     /**
@@ -49,8 +49,8 @@ class WidgetItems extends \yii\db\ActiveRecord
             [['widget_id', 'file_id', 'sort', 'parent_id', 'status', 'created_at', 'updated_at', 'deleted_at'], 'integer'],
             [['title', 'description', 'secondary'], 'string', 'max' => 255],
             [['file_id'], 'exist', 'skipOnError' => true, 'targetClass' => File::class, 'targetAttribute' => ['file_id' => 'id']],
-            [['parent_id'], 'exist', 'skipOnError' => true, 'targetClass' => WidgetItems::class, 'targetAttribute' => ['parent_id' => 'id']],
-            [['widget_id'], 'exist', 'skipOnError' => true, 'targetClass' => Widgets::class, 'targetAttribute' => ['widget_id' => 'id']],
+            [['parent_id'], 'exist', 'skipOnError' => true, 'targetClass' => WidgetItem::class, 'targetAttribute' => ['parent_id' => 'id']],
+            [['widget_id'], 'exist', 'skipOnError' => true, 'targetClass' => Widget::class, 'targetAttribute' => ['widget_id' => 'id']],
         ];
     }
 
@@ -88,40 +88,40 @@ class WidgetItems extends \yii\db\ActiveRecord
     /**
      * Gets query for [[Parent]].
      *
-     * @return \yii\db\ActiveQuery|\common\models\query\WidgetItemsQuery
+     * @return \yii\db\ActiveQuery|\common\models\query\WidgetItemQuery
      */
     public function getParent()
     {
-        return $this->hasOne(WidgetItems::class, ['id' => 'parent_id']);
+        return $this->hasOne(WidgetItem::class, ['id' => 'parent_id']);
     }
 
     /**
      * Gets query for [[Widget]].
      *
-     * @return \yii\db\ActiveQuery|\common\models\query\WidgetsQuery
+     * @return \yii\db\ActiveQuery|\common\models\query\WidgetQuery
      */
     public function getWidget()
     {
-        return $this->hasOne(Widgets::class, ['id' => 'widget_id']);
+        return $this->hasOne(Widget::class, ['id' => 'widget_id']);
     }
 
     /**
-     * Gets query for [[WidgetItems]].
+     * Gets query for [[WidgetItem]].
      *
-     * @return \yii\db\ActiveQuery|\common\models\query\WidgetItemsQuery
+     * @return \yii\db\ActiveQuery|\common\models\query\WidgetItemQuery
      */
     public function getWidgetItems()
     {
-        return $this->hasMany(WidgetItems::class, ['parent_id' => 'id']);
+        return $this->hasMany(WidgetItem::class, ['parent_id' => 'id']);
     }
 
     /**
      * {@inheritdoc}
-     * @return \common\models\query\WidgetItemsQuery the active query used by this AR class.
+     * @return \common\models\query\WidgetItemQuery the active query used by this AR class.
      */
     public static function find()
     {
-        return new \common\models\query\WidgetItemsQuery(get_called_class());
+        return new \common\models\query\WidgetItemQuery(get_called_class());
     }
 
 }

@@ -16,15 +16,13 @@ use Yii;
  * @property string|null $folder
  * @property string|null $domain
  * @property int|null $user_id
- * @property int|null $folder_id
  * @property string|null $path
  * @property int|null $size
  * @property int $created_at
  * @property int $updated_at
  * @property int|null $downloads
  *
- * @property Folders $folder0
- * @property MenuItems[] $menuItems
+ * @property MenuItem[] $menuItems
  */
 class File extends \yii\db\ActiveRecord
 {
@@ -44,12 +42,11 @@ class File extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['title', 'description', 'file', 'ext', 'slug', 'folder', 'domain', 'user_id', 'folder_id', 'path', 'size', 'downloads'], 'default', 'value' => null],
-            [['user_id', 'folder_id', 'size', 'created_at', 'updated_at', 'downloads'], 'integer'],
+            [['title', 'description', 'file', 'ext', 'slug', 'folder', 'domain', 'user_id', 'path', 'size', 'downloads'], 'default', 'value' => null],
+            [['user_id', 'size', 'created_at', 'updated_at', 'downloads'], 'integer'],
             [['created_at', 'updated_at'], 'required'],
             [['title', 'description', 'file', 'slug', 'folder', 'domain', 'path'], 'string', 'max' => 255],
             [['ext'], 'string', 'max' => 16],
-            [['folder_id'], 'exist', 'skipOnError' => true, 'targetClass' => Folders::class, 'targetAttribute' => ['folder_id' => 'id']],
         ];
     }
 
@@ -68,7 +65,6 @@ class File extends \yii\db\ActiveRecord
             'folder' => Yii::t('app', 'Folder'),
             'domain' => Yii::t('app', 'Domain'),
             'user_id' => Yii::t('app', 'User ID'),
-            'folder_id' => Yii::t('app', 'Folder ID'),
             'path' => Yii::t('app', 'Path'),
             'size' => Yii::t('app', 'Size'),
             'created_at' => Yii::t('app', 'Created At'),
@@ -78,23 +74,13 @@ class File extends \yii\db\ActiveRecord
     }
 
     /**
-     * Gets query for [[Folder0]].
+     * Gets query for [[MenuItem]].
      *
-     * @return \yii\db\ActiveQuery|\common\models\query\FoldersQuery
-     */
-    public function getFolder0()
-    {
-        return $this->hasOne(Folders::class, ['id' => 'folder_id']);
-    }
-
-    /**
-     * Gets query for [[MenuItems]].
-     *
-     * @return \yii\db\ActiveQuery|\common\models\query\MenuItemsQuery
+     * @return \yii\db\ActiveQuery|\common\models\query\MenuItemQuery
      */
     public function getMenuItems()
     {
-        return $this->hasMany(MenuItems::class, ['file_id' => 'id']);
+        return $this->hasMany(MenuItem::class, ['file_id' => 'id']);
     }
 
     /**

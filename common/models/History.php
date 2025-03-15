@@ -2,40 +2,40 @@
 
 namespace common\models;
 
-use common\models\query\BannerQuery;
 use Yii;
 
 /**
- * This is the model class for table "banner".
+ * This is the model class for table "history".
  *
  * @property int $id
- * @property string $title
+ * @property string|null $title
  * @property string|null $slug
- * @property string $link
- * @property int|null $sort
+ * @property string|null $description
+ * @property int|null $type
+ * @property int|null $file_id
+ * @property string|null $documents
+ * @property string|null $anons
+ * @property string|null $content
  * @property int|null $lang
  * @property string|null $lang_hash
- * @property int|null $file_id
- * @property int|null $target
  * @property int|null $status
+ * @property int|null $views
  * @property int $created_at
  * @property int $updated_at
  * @property int|null $deleted_at
  *
  * @property File $file
  */
-class Banner extends \yii\db\ActiveRecord
+class History extends \yii\db\ActiveRecord
 {
-    const STATUS_DELETED = 0;
-    const STATUS_INACTIVE = 9;
-    const STATUS_ACTIVE = 10;
+
 
     /**
      * {@inheritdoc}
      */
     public static function tableName()
     {
-        return 'banner';
+        return 'history';
     }
 
     /**
@@ -44,11 +44,11 @@ class Banner extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['slug', 'sort', 'lang', 'lang_hash', 'file_id', 'target', 'deleted_at'], 'default', 'value' => null],
+            [['title', 'slug', 'description', 'type', 'file_id', 'documents', 'anons', 'content', 'lang', 'lang_hash', 'views', 'deleted_at'], 'default', 'value' => null],
             [['status'], 'default', 'value' => 9],
-            [['title', 'link', 'created_at', 'updated_at'], 'required'],
-            [['sort', 'lang', 'file_id', 'target', 'status', 'created_at', 'updated_at', 'deleted_at'], 'integer'],
-            [['title', 'slug', 'link'], 'string', 'max' => 255],
+            [['type', 'file_id', 'lang', 'status', 'views', 'created_at', 'updated_at', 'deleted_at'], 'integer'],
+            [['created_at', 'updated_at'], 'required'],
+            [['title', 'slug', 'description', 'documents', 'anons', 'content'], 'string', 'max' => 255],
             [['lang_hash'], 'string', 'max' => 32],
             [['file_id'], 'exist', 'skipOnError' => true, 'targetClass' => File::class, 'targetAttribute' => ['file_id' => 'id']],
         ];
@@ -63,13 +63,16 @@ class Banner extends \yii\db\ActiveRecord
             'id' => Yii::t('app', 'ID'),
             'title' => Yii::t('app', 'Title'),
             'slug' => Yii::t('app', 'Slug'),
-            'link' => Yii::t('app', 'Link'),
-            'sort' => Yii::t('app', 'Sort'),
+            'description' => Yii::t('app', 'Description'),
+            'type' => Yii::t('app', 'Type'),
+            'file_id' => Yii::t('app', 'File ID'),
+            'documents' => Yii::t('app', 'Documents'),
+            'anons' => Yii::t('app', 'Anons'),
+            'content' => Yii::t('app', 'Content'),
             'lang' => Yii::t('app', 'Lang'),
             'lang_hash' => Yii::t('app', 'Lang Hash'),
-            'file_id' => Yii::t('app', 'File ID'),
-            'target' => Yii::t('app', 'Target'),
             'status' => Yii::t('app', 'Status'),
+            'views' => Yii::t('app', 'Views'),
             'created_at' => Yii::t('app', 'Created At'),
             'updated_at' => Yii::t('app', 'Updated At'),
             'deleted_at' => Yii::t('app', 'Deleted At'),
@@ -88,11 +91,11 @@ class Banner extends \yii\db\ActiveRecord
 
     /**
      * {@inheritdoc}
-     * @return BannerQuery the active query used by this AR class.
+     * @return \common\models\query\HistoryQuery the active query used by this AR class.
      */
     public static function find()
     {
-        return new BannerQuery(get_called_class());
+        return new \common\models\query\HistoryQuery(get_called_class());
     }
 
 }

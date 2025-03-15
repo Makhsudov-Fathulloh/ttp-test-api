@@ -24,8 +24,6 @@ use yii\widgets\ActiveForm;
 
 <!--    --><?php //= $form->field($model, 'domain')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'folder_id')->textInput() ?>
-
     <?= $form->field($model, 'path')->textInput(['maxlength' => true]) ?>
 
 <!--    --><?php //= $form->field($model, 'size')->textInput() ?>

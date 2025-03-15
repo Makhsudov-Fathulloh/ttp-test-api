@@ -38,7 +38,6 @@ $this->params['breadcrumbs'][] = $this->title;
             'folder',
             //'domain',
             'user_id',
-            //'folder_id',
             //'size',
             'downloads',
             [

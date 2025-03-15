@@ -4,12 +4,12 @@ namespace common\models\search;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use common\models\Menus;
+use common\models\Menu;
 
 /**
- * MenusSearch represents the model behind the search form of `common\models\Menus`.
+ * MenuSearch represents the model behind the search form of `common\models\Menu`.
  */
-class MenusSearch extends Menus
+class MenuSearch extends Menu
 {
     /**
      * {@inheritdoc}
@@ -41,7 +41,7 @@ class MenusSearch extends Menus
      */
     public function search($params, $formName = null)
     {
-        $query = Menus::find();
+        $query = Menu::find();
 
         // add conditions that should always apply here
 

@@ -2,11 +2,11 @@
 
 use yii\db\Migration;
 
-class m250313_085119_crate_menus_table extends Migration
+class m250313_085119_crate_menu_table extends Migration
 {
     public function safeUp()
     {
-        $this->createTable("menus", [
+        $this->createTable("menu", [
             'id' => $this->primaryKey(),
             'title' => $this->string(255),
             'alias' => $this->string(255),
@@ -20,7 +20,7 @@ class m250313_085119_crate_menus_table extends Migration
             'deleted_at' => $this->integer(),
         ]);
 
-        $this->batchInsert('{{%menus}}', [
+        $this->batchInsert('{{%menu}}', [
                 'title',
                 'alias',
                 'status',
@@ -31,35 +31,35 @@ class m250313_085119_crate_menus_table extends Migration
                 [
                     'header-nav',
                     'header-nav',
-                    \common\models\Menus::STATUS_ACTIVE,
+                    \common\models\Menu::STATUS_ACTIVE,
                     date('U'),
                     date('U')
                 ],
                 [
                     'additional-menu',
                     'additional-menu',
-                    \common\models\Menus::STATUS_ACTIVE,
+                    \common\models\Menu::STATUS_ACTIVE,
                     date('U'),
                     date('U')
                 ],
                 [
                     'useful-menu',
                     'additional-menu',
-                    \common\models\Menus::STATUS_ACTIVE,
+                    \common\models\Menu::STATUS_ACTIVE,
                     date('U'),
                     date('U')
                 ],
                 [
                     'footer-nav__right',
                     'footer-nav',
-                    \common\models\Menus::STATUS_ACTIVE,
+                    \common\models\Menu::STATUS_ACTIVE,
                     date('U'),
                     date('U')
                 ],
                 [
                     'footer-nav__left',
                     'footer-nav',
-                    \common\models\Menus::STATUS_ACTIVE,
+                    \common\models\Menu::STATUS_ACTIVE,
                     date('U'),
                     date('U')
                 ],
@@ -69,6 +69,6 @@ class m250313_085119_crate_menus_table extends Migration
 
     public function safeDown()
     {
-        $this->dropTable("menus");
+        $this->dropTable("menu");
     }
 }

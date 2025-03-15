@@ -5,7 +5,7 @@ namespace common\models;
 use Yii;
 
 /**
- * This is the model class for table "menus".
+ * This is the model class for table "menu".
  *
  * @property int $id
  * @property string|null $title
@@ -18,9 +18,9 @@ use Yii;
  * @property int $updated_at
  * @property int|null $deleted_at
  *
- * @property MenuItems[] $menuItems
+ * @property MenuItem[] $menuItems
  */
-class Menus extends \yii\db\ActiveRecord
+class Menu extends \yii\db\ActiveRecord
 {
     const STATUS_DELETED = 0;
     const STATUS_INACTIVE = 9;
@@ -31,7 +31,7 @@ class Menus extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'menus';
+        return 'menu';
     }
 
     /**
@@ -69,22 +69,22 @@ class Menus extends \yii\db\ActiveRecord
     }
 
     /**
-     * Gets query for [[MenuItems]].
+     * Gets query for [[MenuItem]].
      *
-     * @return \yii\db\ActiveQuery|\common\models\query\MenuItemsQuery
+     * @return \yii\db\ActiveQuery|\common\models\query\MenuItemQuery
      */
     public function getMenuItems()
     {
-        return $this->hasMany(MenuItems::class, ['menu_id' => 'id']);
+        return $this->hasMany(MenuItem::class, ['menu_id' => 'id']);
     }
 
     /**
      * {@inheritdoc}
-     * @return \common\models\query\MenusQuery the active query used by this AR class.
+     * @return \common\models\query\MenuQuery the active query used by this AR class.
      */
     public static function find()
     {
-        return new \common\models\query\MenusQuery(get_called_class());
+        return new \common\models\query\MenuQuery(get_called_class());
     }
 
 }

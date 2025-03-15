@@ -3,26 +3,29 @@
 use yii\db\Migration;
 
 /**
- * Handles the creation of table `{{%banners}}`.
+ * Handles the creation of table `{{%history}}`.
  */
-class m250314_143053_create_banners_table extends Migration
+class m250314_211152_create_history_table extends Migration
 {
     /**
      * {@inheritdoc}
      */
     public function safeUp()
     {
-        $this->createTable('{{%banners}}', [
+        $this->createTable('{{%history}}', [
             'id' => $this->primaryKey(),
-            'title' => $this->string()->notNull(),
+            'title' => $this->string(255),
             'slug' => $this->string(255),
-            'link' => $this->string()->notNull(),
-            'sort' => $this->integer(),
+            'description' => $this->string(),
+            'type' => $this->integer(),
+            'file_id' => $this->integer(),
+            'documents' => $this->string(),
+            'anons' => $this->string(),
+            'content' => $this->string(),
             'lang' => $this->integer(),
             'lang_hash' => $this->string(32),
-            'file_id' => $this->integer(),
-            'target' => $this->integer(),
             'status' => $this->integer()->defaultValue(9),
+            'views' => $this->integer(),
 
             'created_at' => $this->integer()->notNull(),
             'updated_at' => $this->integer()->notNull(),
@@ -30,14 +33,14 @@ class m250314_143053_create_banners_table extends Migration
         ]);
 
         $this->createIndex(
-            'idx-banners-file_id',
-            'banners',
+            'idx-history-file_id',
+            'history',
             'file_id'
         );
 
         $this->addForeignKey(
-            'fk-banners-file_id',
-            'banners',
+            'fk-history-file_id',
+            'history',
             'file_id',
             'file',
             'id',
@@ -51,15 +54,15 @@ class m250314_143053_create_banners_table extends Migration
     public function safeDown()
     {
         $this->dropForeignKey(
-            'fk-banners-file_id',
-            '{{%banners}}'
+            'fk-history-file_id',
+            '{{%history}}'
         );
 
         $this->dropIndex(
-            'idx-banners-file_id',
-            '{{%banners}}'
+            'idx-history-file_id',
+            '{{%history}}'
         );
 
-        $this->dropTable('{{%banners}}');
+        $this->dropTable('{{%history}}');
     }
 }

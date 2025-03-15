@@ -3,11 +3,11 @@
 namespace common\models\query;
 
 /**
- * This is the ActiveQuery class for [[\common\models\Widgets]].
+ * This is the ActiveQuery class for [[\common\models\Widget]].
  *
- * @see \common\models\Widgets
+ * @see \common\models\Widget
  */
-class WidgetsQuery extends \yii\db\ActiveQuery
+class WidgetQuery extends \yii\db\ActiveQuery
 {
     /*public function active()
     {
@@ -16,7 +16,7 @@ class WidgetsQuery extends \yii\db\ActiveQuery
 
     /**
      * {@inheritdoc}
-     * @return \common\models\Widgets[]|array
+     * @return \common\models\Widget[]|array
      */
     public function all($db = null)
     {
@@ -25,7 +25,7 @@ class WidgetsQuery extends \yii\db\ActiveQuery
 
     /**
      * {@inheritdoc}
-     * @return \common\models\Widgets|array|null
+     * @return \common\models\Widget|array|null
      */
     public function one($db = null)
     {

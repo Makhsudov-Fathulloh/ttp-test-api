@@ -3,11 +3,11 @@
 namespace common\models\query;
 
 /**
- * This is the ActiveQuery class for [[\common\models\Folders]].
+ * This is the ActiveQuery class for [[\common\models\History]].
  *
- * @see \common\models\Folders
+ * @see \common\models\History
  */
-class FoldersQuery extends \yii\db\ActiveQuery
+class HistoryQuery extends \yii\db\ActiveQuery
 {
     /*public function active()
     {
@@ -16,7 +16,7 @@ class FoldersQuery extends \yii\db\ActiveQuery
 
     /**
      * {@inheritdoc}
-     * @return \common\models\Folders[]|array
+     * @return \common\models\History[]|array
      */
     public function all($db = null)
     {
@@ -25,7 +25,7 @@ class FoldersQuery extends \yii\db\ActiveQuery
 
     /**
      * {@inheritdoc}
-     * @return \common\models\Folders|array|null
+     * @return \common\models\History|array|null
      */
     public function one($db = null)
     {
