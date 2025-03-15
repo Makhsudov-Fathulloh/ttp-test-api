@@ -4,14 +4,14 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /** @var yii\web\View $this */
-/** @var common\models\History $model */
+/** @var common\models\Station $model */
 
 $this->title = $model->title;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Histories'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Stations'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
-<div class="history-view">
+<div class="station-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
@@ -32,14 +32,20 @@ $this->params['breadcrumbs'][] = $this->title;
             'id',
             'title',
 //            'slug',
-            'description',
-            'type',
+            'address',
+            'phone',
+            'fax',
+            'email:email',
+            'region_id',
             'file_id',
-            'documents',
-            'anons',
-            'content',
+            'lang',
+            'lang_hash',
+            'lat',
+            'long',
             'status',
-            'views',
+            'created_at',
+            'updated_at',
+            'deleted_at',
         ],
     ]) ?>
 

@@ -18,7 +18,6 @@ class m250312_120737_create_file_table extends Migration
             'description' => $this->string(),
             'file' => $this->string(255),
             'ext' => $this->string(16),
-            'slug' => $this->string(255),
             'folder' => $this->string(255),
             'domain' => $this->string(255),
             'user_id' => $this->integer(),

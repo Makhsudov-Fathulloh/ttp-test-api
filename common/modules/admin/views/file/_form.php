@@ -18,8 +18,6 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'file')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'slug')->textInput(['maxlength' => true]) ?>
-
 <!--    --><?php //= $form->field($model, 'folder')->textInput(['maxlength' => true]) ?>
 
 <!--    --><?php //= $form->field($model, 'domain')->textInput(['maxlength' => true]) ?>

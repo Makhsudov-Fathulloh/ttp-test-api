@@ -4,12 +4,12 @@ namespace common\models\search;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use common\models\File;
+use common\models\Station;
 
 /**
- * FileSearch represents the model behind the search form of `common\models\File`.
+ * StationSearch represents the model behind the search form of `common\models\Station`.
  */
-class FileSearch extends File
+class StationSearch extends Station
 {
     /**
      * {@inheritdoc}
@@ -17,8 +17,8 @@ class FileSearch extends File
     public function rules()
     {
         return [
-            [['id', 'user_id', 'size', 'created_at', 'updated_at', 'downloads'], 'integer'],
-            [['title', 'description', 'file', 'ext', 'folder', 'domain', 'path'], 'safe'],
+            [['id', 'region_id', 'file_id', 'lang', 'status', 'created_at', 'updated_at', 'deleted_at'], 'integer'],
+            [['title', 'slug', 'address', 'phone', 'fax', 'email', 'lang_hash', 'lat', 'long'], 'safe'],
         ];
     }
 
@@ -41,7 +41,7 @@ class FileSearch extends File
      */
     public function search($params, $formName = null)
     {
-        $query = File::find();
+        $query = Station::find();
 
         // add conditions that should always apply here
 
@@ -60,20 +60,24 @@ class FileSearch extends File
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'user_id' => $this->user_id,
-            'size' => $this->size,
+            'region_id' => $this->region_id,
+            'file_id' => $this->file_id,
+            'lang' => $this->lang,
+            'status' => $this->status,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
-            'downloads' => $this->downloads,
+            'deleted_at' => $this->deleted_at,
         ]);
 
         $query->andFilterWhere(['like', 'title', $this->title])
-            ->andFilterWhere(['like', 'description', $this->description])
-            ->andFilterWhere(['like', 'file', $this->file])
-            ->andFilterWhere(['like', 'ext', $this->ext])
-            ->andFilterWhere(['like', 'folder', $this->folder])
-            ->andFilterWhere(['like', 'domain', $this->domain])
-            ->andFilterWhere(['like', 'path', $this->path]);
+            ->andFilterWhere(['like', 'slug', $this->slug])
+            ->andFilterWhere(['like', 'address', $this->address])
+            ->andFilterWhere(['like', 'phone', $this->phone])
+            ->andFilterWhere(['like', 'fax', $this->fax])
+            ->andFilterWhere(['like', 'email', $this->email])
+            ->andFilterWhere(['like', 'lang_hash', $this->lang_hash])
+            ->andFilterWhere(['like', 'lat', $this->lat])
+            ->andFilterWhere(['like', 'long', $this->long]);
 
         return $dataProvider;
     }

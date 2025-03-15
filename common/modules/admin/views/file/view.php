@@ -34,7 +34,6 @@ $this->params['breadcrumbs'][] = $this->title;
             'description',
             'file',
             'ext',
-            'slug',
             'domain',
             'user_id',
             'path',

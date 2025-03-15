@@ -12,7 +12,6 @@ use Yii;
  * @property string|null $description
  * @property string|null $file
  * @property string|null $ext
- * @property string|null $slug
  * @property string|null $folder
  * @property string|null $domain
  * @property int|null $user_id
@@ -42,10 +41,10 @@ class File extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['title', 'description', 'file', 'ext', 'slug', 'folder', 'domain', 'user_id', 'path', 'size', 'downloads'], 'default', 'value' => null],
+            [['title', 'description', 'file', 'ext', 'folder', 'domain', 'user_id', 'path', 'size', 'downloads'], 'default', 'value' => null],
             [['user_id', 'size', 'created_at', 'updated_at', 'downloads'], 'integer'],
             [['created_at', 'updated_at'], 'required'],
-            [['title', 'description', 'file', 'slug', 'folder', 'domain', 'path'], 'string', 'max' => 255],
+            [['title', 'description', 'file','folder', 'domain', 'path'], 'string', 'max' => 255],
             [['ext'], 'string', 'max' => 16],
         ];
     }
@@ -61,7 +60,6 @@ class File extends \yii\db\ActiveRecord
             'description' => Yii::t('app', 'Description'),
             'file' => Yii::t('app', 'File'),
             'ext' => Yii::t('app', 'Ext'),
-            'slug' => Yii::t('app', 'Slug'),
             'folder' => Yii::t('app', 'Folder'),
             'domain' => Yii::t('app', 'Domain'),
             'user_id' => Yii::t('app', 'User ID'),

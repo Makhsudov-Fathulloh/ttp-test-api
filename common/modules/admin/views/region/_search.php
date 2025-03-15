@@ -4,11 +4,11 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /** @var yii\web\View $this */
-/** @var common\models\search\FileSearch $model */
+/** @var common\models\search\RegionSearch $model */
 /** @var yii\widgets\ActiveForm $form */
 ?>
 
-<div class="file-search">
+<div class="region-search">
 
     <?php $form = ActiveForm::begin([
         'action' => ['index'],
@@ -19,23 +19,11 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'title') ?>
 
-    <?= $form->field($model, 'description') ?>
+    <?= $form->field($model, 'code') ?>
 
-    <?= $form->field($model, 'file') ?>
+    <?= $form->field($model, 'country_id') ?>
 
-    <?= $form->field($model, 'ext') ?>
-
-    <?php // echo $form->field($model, 'domain') ?>
-
-    <?php // echo $form->field($model, 'user_id') ?>
-
-    <?php // echo $form->field($model, 'folder_id') ?>
-
-    <?php // echo $form->field($model, 'path') ?>
-
-    <?php // echo $form->field($model, 'size') ?>
-
-    <?php // echo $form->field($model, 'downloads') ?>
+    <?= $form->field($model, 'status') ?>
 
     <div class="form-group">
         <?= Html::submitButton(Yii::t('app', 'Search'), ['class' => 'btn btn-primary']) ?>

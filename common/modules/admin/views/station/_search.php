@@ -4,11 +4,11 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /** @var yii\web\View $this */
-/** @var common\models\search\FileSearch $model */
+/** @var common\models\search\StationSearch $model */
 /** @var yii\widgets\ActiveForm $form */
 ?>
 
-<div class="file-search">
+<div class="station-search">
 
     <?php $form = ActiveForm::begin([
         'action' => ['index'],
@@ -19,23 +19,25 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'title') ?>
 
-    <?= $form->field($model, 'description') ?>
+<!--    --><?php //= $form->field($model, 'slug') ?>
 
-    <?= $form->field($model, 'file') ?>
+    <?= $form->field($model, 'address') ?>
 
-    <?= $form->field($model, 'ext') ?>
+    <?= $form->field($model, 'phone') ?>
 
-    <?php // echo $form->field($model, 'domain') ?>
+    <?php // echo $form->field($model, 'fax') ?>
 
-    <?php // echo $form->field($model, 'user_id') ?>
+    <?php  echo $form->field($model, 'email') ?>
 
-    <?php // echo $form->field($model, 'folder_id') ?>
+    <?php  echo $form->field($model, 'region_id') ?>
 
-    <?php // echo $form->field($model, 'path') ?>
+<!--    --><?php // echo $form->field($model, 'file_id') ?>
 
-    <?php // echo $form->field($model, 'size') ?>
+    <?php  echo $form->field($model, 'lat') ?>
 
-    <?php // echo $form->field($model, 'downloads') ?>
+    <?php  echo $form->field($model, 'long') ?>
+
+    <?php  echo $form->field($model, 'status') ?>
 
     <div class="form-group">
         <?= Html::submitButton(Yii::t('app', 'Search'), ['class' => 'btn btn-primary']) ?>

@@ -4,11 +4,11 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /** @var yii\web\View $this */
-/** @var common\models\search\FileSearch $model */
+/** @var common\models\search\PostSearch $model */
 /** @var yii\widgets\ActiveForm $form */
 ?>
 
-<div class="file-search">
+<div class="post-search">
 
     <?php $form = ActiveForm::begin([
         'action' => ['index'],
@@ -19,23 +19,29 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'title') ?>
 
+<!--    --><?php //= $form->field($model, 'slug') ?>
+
     <?= $form->field($model, 'description') ?>
 
-    <?= $form->field($model, 'file') ?>
+    <?= $form->field($model, 'type') ?>
 
-    <?= $form->field($model, 'ext') ?>
+    <?php  echo $form->field($model, 'file_id') ?>
 
-    <?php // echo $form->field($model, 'domain') ?>
+    <?php  echo $form->field($model, 'top') ?>
 
-    <?php // echo $form->field($model, 'user_id') ?>
+    <?php  echo $form->field($model, 'user_id') ?>
 
-    <?php // echo $form->field($model, 'folder_id') ?>
+    <?php  echo $form->field($model, 'video') ?>
 
-    <?php // echo $form->field($model, 'path') ?>
+    <?php // echo $form->field($model, 'documents') ?>
 
-    <?php // echo $form->field($model, 'size') ?>
+    <?php // echo $form->field($model, 'content') ?>
 
-    <?php // echo $form->field($model, 'downloads') ?>
+    <?php  echo $form->field($model, 'status') ?>
+
+    <?php // echo $form->field($model, 'views') ?>
+
+    <?php  echo $form->field($model, 'published_at') ?>
 
     <div class="form-group">
         <?= Html::submitButton(Yii::t('app', 'Search'), ['class' => 'btn btn-primary']) ?>

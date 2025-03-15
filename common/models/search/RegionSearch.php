@@ -4,12 +4,12 @@ namespace common\models\search;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use common\models\File;
+use common\models\Region;
 
 /**
- * FileSearch represents the model behind the search form of `common\models\File`.
+ * RegionSearch represents the model behind the search form of `common\models\Region`.
  */
-class FileSearch extends File
+class RegionSearch extends Region
 {
     /**
      * {@inheritdoc}
@@ -17,8 +17,8 @@ class FileSearch extends File
     public function rules()
     {
         return [
-            [['id', 'user_id', 'size', 'created_at', 'updated_at', 'downloads'], 'integer'],
-            [['title', 'description', 'file', 'ext', 'folder', 'domain', 'path'], 'safe'],
+            [['id', 'code', 'country_id', 'status', 'created_at', 'updated_at', 'deleted_at'], 'integer'],
+            [['title'], 'safe'],
         ];
     }
 
@@ -41,7 +41,7 @@ class FileSearch extends File
      */
     public function search($params, $formName = null)
     {
-        $query = File::find();
+        $query = Region::find();
 
         // add conditions that should always apply here
 
@@ -60,20 +60,15 @@ class FileSearch extends File
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'user_id' => $this->user_id,
-            'size' => $this->size,
+            'code' => $this->code,
+            'country_id' => $this->country_id,
+            'status' => $this->status,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
-            'downloads' => $this->downloads,
+            'deleted_at' => $this->deleted_at,
         ]);
 
-        $query->andFilterWhere(['like', 'title', $this->title])
-            ->andFilterWhere(['like', 'description', $this->description])
-            ->andFilterWhere(['like', 'file', $this->file])
-            ->andFilterWhere(['like', 'ext', $this->ext])
-            ->andFilterWhere(['like', 'folder', $this->folder])
-            ->andFilterWhere(['like', 'domain', $this->domain])
-            ->andFilterWhere(['like', 'path', $this->path]);
+        $query->andFilterWhere(['like', 'title', $this->title]);
 
         return $dataProvider;
     }

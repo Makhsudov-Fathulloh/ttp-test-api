@@ -31,7 +31,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
             'id',
             'title',
-            'slug',
+//            'slug',
             'description',
             'type',
             'file_id',

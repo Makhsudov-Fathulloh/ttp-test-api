@@ -4,12 +4,12 @@ namespace common\models\search;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use common\models\File;
+use common\models\Post;
 
 /**
- * FileSearch represents the model behind the search form of `common\models\File`.
+ * PostSearch represents the model behind the search form of `common\models\Post`.
  */
-class FileSearch extends File
+class PostSearch extends Post
 {
     /**
      * {@inheritdoc}
@@ -17,8 +17,8 @@ class FileSearch extends File
     public function rules()
     {
         return [
-            [['id', 'user_id', 'size', 'created_at', 'updated_at', 'downloads'], 'integer'],
-            [['title', 'description', 'file', 'ext', 'folder', 'domain', 'path'], 'safe'],
+            [['id', 'type', 'file_id', 'top', 'user_id', 'lang', 'status', 'views', 'published_at', 'created_at', 'updated_at', 'deleted_at'], 'integer'],
+            [['title', 'slug', 'description', 'video', 'documents', 'content', 'lang_hash'], 'safe'],
         ];
     }
 
@@ -41,7 +41,7 @@ class FileSearch extends File
      */
     public function search($params, $formName = null)
     {
-        $query = File::find();
+        $query = Post::find();
 
         // add conditions that should always apply here
 
@@ -60,20 +60,26 @@ class FileSearch extends File
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
+            'type' => $this->type,
+            'file_id' => $this->file_id,
+            'top' => $this->top,
             'user_id' => $this->user_id,
-            'size' => $this->size,
+            'lang' => $this->lang,
+            'status' => $this->status,
+            'views' => $this->views,
+            'published_at' => $this->published_at,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
-            'downloads' => $this->downloads,
+            'deleted_at' => $this->deleted_at,
         ]);
 
         $query->andFilterWhere(['like', 'title', $this->title])
+            ->andFilterWhere(['like', 'slug', $this->slug])
             ->andFilterWhere(['like', 'description', $this->description])
-            ->andFilterWhere(['like', 'file', $this->file])
-            ->andFilterWhere(['like', 'ext', $this->ext])
-            ->andFilterWhere(['like', 'folder', $this->folder])
-            ->andFilterWhere(['like', 'domain', $this->domain])
-            ->andFilterWhere(['like', 'path', $this->path]);
+            ->andFilterWhere(['like', 'video', $this->video])
+            ->andFilterWhere(['like', 'documents', $this->documents])
+            ->andFilterWhere(['like', 'content', $this->content])
+            ->andFilterWhere(['like', 'lang_hash', $this->lang_hash]);
 
         return $dataProvider;
     }

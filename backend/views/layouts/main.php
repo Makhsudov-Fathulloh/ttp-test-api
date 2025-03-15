@@ -42,6 +42,9 @@ AppAsset::register($this);
         ['label' => 'Banner', 'url' => ['/admin/banner']],
         ['label' => 'Widget', 'url' => ['/admin/widget']],
         ['label' => 'WidgetItem', 'url' => ['/admin/widget-item']],
+        ['label' => 'Post', 'url' => ['/admin/post']],
+        ['label' => 'Region', 'url' => ['/admin/region']],
+        ['label' => 'Station', 'url' => ['/admin/station']],
     ];
     if (Yii::$app->user->isGuest) {
         $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
