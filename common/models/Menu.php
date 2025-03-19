@@ -3,6 +3,9 @@
 namespace common\models;
 
 use Yii;
+use yii\behaviors\TimestampBehavior;
+use yii\db\ActiveRecord;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "menu".
@@ -10,7 +13,7 @@ use Yii;
  * @property int $id
  * @property string|null $title
  * @property string|null $alias
- * @property string|null $type
+ * @property int|null $type
  * @property int|null $lang
  * @property string|null $lang_hash
  * @property int|null $status
@@ -34,6 +37,19 @@ class Menu extends \yii\db\ActiveRecord
         return 'menu';
     }
 
+    public function behaviors()
+    {
+        return [
+            [
+                'class' => TimestampBehavior::class,
+                'attributes' => [
+                    ActiveRecord::EVENT_BEFORE_INSERT => ['created_at', 'updated_at'],
+                    ActiveRecord::EVENT_BEFORE_UPDATE => ['updated_at'],
+                ],
+            ],
+        ];
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -42,9 +58,8 @@ class Menu extends \yii\db\ActiveRecord
         return [
             [['title', 'alias', 'type', 'lang', 'lang_hash', 'deleted_at'], 'default', 'value' => null],
             [['status'], 'default', 'value' => 9],
-            [['lang', 'status', 'created_at', 'updated_at', 'deleted_at'], 'integer'],
-            [['created_at', 'updated_at'], 'required'],
-            [['title', 'alias', 'type'], 'string', 'max' => 255],
+            [['type', 'lang', 'status', 'created_at', 'updated_at', 'deleted_at'], 'integer'],
+            [['title', 'alias'], 'string', 'max' => 255],
             [['lang_hash'], 'string', 'max' => 32],
         ];
     }
@@ -87,4 +102,12 @@ class Menu extends \yii\db\ActiveRecord
         return new \common\models\query\MenuQuery(get_called_class());
     }
 
+    /**
+     * @param null $id
+     * @return array
+     */
+    public static function getMenuList()
+    {
+        return ArrayHelper::map(static::find()->all(), 'id', 'title');
+    }
 }

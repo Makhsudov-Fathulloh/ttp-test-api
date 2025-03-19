@@ -18,6 +18,14 @@ return [
         ],
     ],
     'components' => [
+        'assetManager' => [
+            'bundles' => [
+                'kartik\bs5\BootstrapAsset' => [
+                    'sourcePath' => null,
+                    'css' => ['https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css'],
+                ],
+            ],
+        ],
         'request' => [
             'csrfParam' => '_csrf-backend',
         ],

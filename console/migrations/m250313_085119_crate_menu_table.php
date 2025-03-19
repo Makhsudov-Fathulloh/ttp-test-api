@@ -10,13 +10,13 @@ class m250313_085119_crate_menu_table extends Migration
             'id' => $this->primaryKey(),
             'title' => $this->string(255),
             'alias' => $this->string(255),
-            'type' => $this->string(),
+            'type' => $this->integer(),
             'lang' => $this->integer(),
             'lang_hash' => $this->string(32),
             'status' => $this->integer()->defaultValue(9),
 
-            'created_at' => $this->integer()->notNull(),
-            'updated_at' => $this->integer()->notNull(),
+            'created_at' => $this->integer(),
+            'updated_at' => $this->integer(),
             'deleted_at' => $this->integer(),
         ]);
 

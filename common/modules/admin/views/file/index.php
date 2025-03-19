@@ -36,7 +36,18 @@ $this->params['breadcrumbs'][] = $this->title;
             'ext',
             'folder',
             //'domain',
-            'user_id',
+            [
+                'attribute' => 'user_id',
+                'value' => function ($model) {
+                    return $model->user ? $model->user->username : null;
+                },
+                'filter' => Html::activeDropDownList(
+                    $searchModel,
+                    'user_id', $userId,
+                    ['class' => 'form-control selectpicker', 'style' => 'width:100%', 'data-style' => "form-control", 'prompt' => 'Выберите меню']
+                ),
+            ],
+            'path',
             //'size',
             'downloads',
             [

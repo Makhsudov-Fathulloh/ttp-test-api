@@ -5,9 +5,11 @@ namespace common\modules\admin\controllers;
 use common\models\MenuItem;
 use common\models\search\MenuItemSearch;
 use Yii;
+use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
 
 /**
  * MenuItemController implements the CRUD actions for MenuItem model.
@@ -42,9 +44,29 @@ class MenuItemController extends Controller
         $searchModel = new MenuItemSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
+        $menuId = ArrayHelper::map(
+            \common\models\Menu::find()
+                ->select(['id', 'title'])
+                ->asArray()
+                ->all(),
+            'id',
+            'title'
+        );
+
+        $menuIdParentId = ArrayHelper::map(
+            \common\models\MenuItem::find()
+                ->where(['IS NOT', 'menu_id_parent_id', null])
+                ->select(['menu_id_parent_id', 'title'])
+                ->asArray()
+                ->all(),
+            'id',
+            'title'
+        );
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'menuId' => $menuId,
+            'menuIdParentId' => $menuIdParentId,
         ]);
     }
 
@@ -70,17 +92,29 @@ class MenuItemController extends Controller
     {
         $model = new MenuItem();
 
-        if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
+        if ($this->request->isPost && $model->load($this->request->post())) {
+            $model->document = UploadedFile::getInstance($model, 'document');
+
+            if (!$model->validate()) {
+                Yii::error('Validation Error: ' . json_encode($model->errors), __METHOD__);
+                Yii::$app->session->setFlash('error', json_encode($model->errors));
+                return $this->render('create', ['model' => $model]);
+            }
+
+            if (!$model->uploadFile()) {
+                return $this->render('create', ['model' => $model]);
+            }
+
+            if ($model->save(false)) {
                 return $this->redirect(['view', 'id' => $model->id]);
             }
-        } else {
-            $model->loadDefaultValues();
+
+            if (Yii::$app->request->post('returnUrl')) {
+                return $this->redirect(Yii::$app->request->post('returnUrl'));
+            }
         }
 
-        return $this->render('create', [
-            'model' => $model,
-        ]);
+        return $this->render('create', ['model' => $model]);
     }
 
     /**
@@ -92,16 +126,42 @@ class MenuItemController extends Controller
      */
     public function actionUpdate($id)
     {
-        $model = $this->findModel($id);
-
-        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        $model = MenuItem::findOne($id);
+        if (!$model) {
+            throw new NotFoundHttpException('Model topilmadi.');
         }
 
-        return $this->render('update', [
-            'model' => $model,
-        ]);
+        $oldFile = $model->document; // Eski faylni saqlab qolish
+
+        if ($this->request->isPost  && $model->load($this->request->post())) {
+            $model->document = UploadedFile::getInstance($model, 'document');
+
+            if (!$model->validate()) {
+                Yii::$app->session->setFlash('error', json_encode($model->errors));
+                return $this->render('update', ['model' => $model]);
+            }
+
+            if ($model->document) {
+                if (!$model->uploadFile()) {
+                    return $this->render('update', ['model' => $model]);
+                }
+                @unlink(Yii::getAlias('@static/uploads/') . $oldFile);
+            } else {
+                $model->document = $oldFile;
+            }
+
+            if ($model->save(false)) {
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
+
+            if (Yii::$app->request->post('returnUrl')) {
+                return $this->redirect(Yii::$app->request->post('returnUrl'));
+            }
+        }
+
+        return $this->render('update', ['model' => $model]);
     }
+
 
     /**
      * Deletes an existing MenuItem model.
@@ -112,7 +172,10 @@ class MenuItemController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $model = $this->findModel($id);
+        $model->status = MenuItem::STATUS_DELETED;
+        $model->deleted_at = date('U');
+        $model->save();
 
         return $this->redirect(['index']);
     }

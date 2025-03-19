@@ -74,6 +74,19 @@ class MenuController extends Controller
             if ($model->load($this->request->post()) && $model->save()) {
                 return $this->redirect(['view', 'id' => $model->id]);
             }
+
+//            if ($model->load($this->request->post())) {
+//                if (!$model->validate()) {
+//                    Yii::$app->session->setFlash('error', json_encode($model->errors));
+//                } else {
+//                    if ($model->save()) {
+//                        return $this->redirect(['view', 'id' => $model->id]);
+//                    } else {
+//                        Yii::$app->session->setFlash('error', 'Model saqlanmadi!');
+//                    }
+//                }
+//            }
+
         } else {
             $model->loadDefaultValues();
         }
@@ -112,10 +125,14 @@ class MenuController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $model = $this->findModel($id);
+        $model->status = Menu::STATUS_DELETED;
+        $model->deleted_at = date('U');
+        $model->save();
 
         return $this->redirect(['index']);
     }
+
 
     /**
      * Finds the Menu model based on its primary key value.

@@ -11,7 +11,7 @@ class m250313_113555_crate_menu_item_table extends Migration
     {
         $this->createTable("menu_item", [
             'id' => $this->primaryKey(),
-            'menu_id' => $this->integer()->notNull(),
+            'menu_id' => $this->integer(),
             'title' => $this->string()->notNull(),
             'url' => $this->string(255)->defaultValue('#'),
             'file_id' => $this->integer(),
@@ -19,8 +19,8 @@ class m250313_113555_crate_menu_item_table extends Migration
             'menu_id_parent_id' => $this->integer(),
             'status' => $this->integer()->defaultValue(9),
 
-            'created_at' => $this->integer()->notNull(),
-            'updated_at' => $this->integer()->notNull(),
+            'created_at' => $this->integer(),
+            'updated_at' => $this->integer(),
             'deleted_at' => $this->integer(),
         ]);
 

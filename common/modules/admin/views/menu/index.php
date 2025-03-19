@@ -33,7 +33,22 @@ $this->params['breadcrumbs'][] = $this->title;
             'title',
             'alias',
             'type',
-            'status',
+            [
+                'attribute' => 'status',
+                'filter' => Html::activeDropDownList(
+                    $searchModel,
+                    'status',
+                    [
+                        Menu::STATUS_ACTIVE => 'Активный',
+                        Menu::STATUS_INACTIVE => 'Неактивный',
+                        Menu::STATUS_DELETED => 'Удаленный'
+                    ],
+                    ['class' => 'form-control selectpicker', 'style' => 'width:100%', 'data-style' => "form-control"]
+                ),
+                'value' => function ($model) {
+                    return $model->status == Menu::STATUS_ACTIVE ? 'Активный' : ($model->status == Menu::STATUS_INACTIVE ? 'Неактивный' : 'Удаленный');
+                }
+            ],
             [
                 'class' => ActionColumn::class,
                 'urlCreator' => function ($action, Menu $model, $key, $index, $column) {

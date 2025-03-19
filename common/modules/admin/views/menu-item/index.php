@@ -30,13 +30,58 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             'id',
-            'menu_id',
+            [
+                'attribute' => 'menu_id',
+                'value' => 'menu.title', // Menu jadvalidagi title ni chiqarish
+                'filter' => Html::activeDropDownList(
+                    $searchModel,
+                    'menu_id', $menuId,
+                    ['class' => 'form-control selectpicker', 'style' => 'width:100%', 'data-style' => "form-control", 'prompt' => 'Выберите меню']
+                ),
+            ],
             'title',
 //            'url:url',
+
             'file_id',
+//            [
+//                'attribute' => 'file_id',
+//                'format' => 'html',
+//                'value' => function ($model) {
+//                    return $model->file->path
+//                        ? Html::img($model->file->path, ['width' => '70px'])
+//                        : 'No image';
+//                }
+//            ],
+
             'sort',
-            'menu_id_parent_id',
-            'status',
+            [
+                'attribute' => 'menu_id_parent_id',
+                'value' => function ($model) {
+                    return $model->menuIdParent ? $model->menuIdParent->title : null;
+                },
+                'filter' => Html::activeDropDownList(
+                    $searchModel,
+                    'menu_id_parent_id', $menuIdParentId,
+                    ['class' => 'form-control selectpicker', 'style' => 'width:100%', 'data-style' => "form-control", 'prompt' => 'Выберите меню']
+                ),
+            ],
+            [
+                'attribute' => 'status',
+                'filter' => Html::activeDropDownList(
+                    $searchModel,
+                    'status',
+                    [
+                        MenuItem::STATUS_ACTIVE => 'Активный',
+                        MenuItem::STATUS_INACTIVE => 'Неактивный',
+                        MenuItem::STATUS_DELETED => 'Удаленный'
+                    ],
+                    ['class' => 'form-control selectpicker', 'style' => 'width:100%', 'data-style' => "form-control"]
+                ),
+                'value' => function ($model) {
+                    return $model->status == MenuItem::STATUS_ACTIVE ? 'Активный' : ($model->status == MenuItem::STATUS_INACTIVE ? 'Неактивный' : 'Удаленный');
+                }
+            ],
+
             [
                 'class' => ActionColumn::class,
                 'urlCreator' => function ($action, MenuItem $model, $key, $index, $column) {

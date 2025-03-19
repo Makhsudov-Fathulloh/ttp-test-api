@@ -5,6 +5,7 @@ namespace common\modules\admin\controllers;
 use common\models\File;
 use common\models\search\FileSearch;
 use Yii;
+use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -42,9 +43,19 @@ class FileController extends Controller
         $searchModel = new FileSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
+        $userId = ArrayHelper::map(
+            \common\models\User::find()
+                ->select(['id', 'username'])
+                ->asArray()
+                ->all(),
+            'id',
+            'username'
+        );
+
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'userId' => $userId,
         ]);
     }
 

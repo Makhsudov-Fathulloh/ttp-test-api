@@ -24,10 +24,25 @@ class m250312_120737_create_file_table extends Migration
             'path' => $this->string(),
             'size' => $this->integer(),
 
-            'created_at' => $this->integer()->notNull(),
-            'updated_at' => $this->integer()->notNull(),
+            'created_at' => $this->integer(),
+            'updated_at' => $this->integer(),
             'downloads' => $this->integer(),
         ]);
+
+        $this->createIndex(
+            'idx-file-user_id',
+            'file',
+            'user_id'
+        );
+
+        $this->addForeignKey(
+            'fk-file-user_id',
+            'file',
+            'user_id',
+            'user',
+            'id',
+            'CASCADE'
+        );
     }
 
     /**
@@ -35,6 +50,16 @@ class m250312_120737_create_file_table extends Migration
      */
     public function safeDown()
     {
+        $this->dropForeignKey(
+            'fk-file-user_id',
+            '{{%menu_item}}'
+        );
+
+        $this->dropIndex(
+            'idx-file-user_id',
+            '{{%file}}'
+        );
+
         $this->dropTable('{{%file}}');
     }
 }
