@@ -12,26 +12,8 @@ use yii\filters\VerbFilter;
 /**
  * WidgetController implements the CRUD actions for Widget model.
  */
-class WidgetController extends Controller
+class WidgetController extends ModuleController
 {
-    /**
-     * @inheritDoc
-     */
-    public function behaviors()
-    {
-        return array_merge(
-            parent::behaviors(),
-            [
-                'verbs' => [
-                    'class' => VerbFilter::class,
-                    'actions' => [
-                        'delete' => ['POST'],
-                    ],
-                ],
-            ]
-        );
-    }
-
     /**
      * Lists all Widget models.
      *

@@ -14,26 +14,8 @@ use yii\web\UploadedFile;
 /**
  * MenuItemController implements the CRUD actions for MenuItem model.
  */
-class MenuItemController extends Controller
+class MenuItemController extends ModuleController
 {
-    /**
-     * @inheritDoc
-     */
-    public function behaviors()
-    {
-        return array_merge(
-            parent::behaviors(),
-            [
-                'verbs' => [
-                    'class' => VerbFilter::class,
-                    'actions' => [
-                        'delete' => ['POST'],
-                    ],
-                ],
-            ]
-        );
-    }
-
     /**
      * Lists all MenuItem models.
      *

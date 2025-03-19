@@ -26,9 +26,13 @@ use Yii;
  *
  * @property File $file
  */
-class History extends \yii\db\ActiveRecord
+class History extends UploadFile
 {
+    const STATUS_DELETED = 0;
+    const STATUS_INACTIVE = 9;
+    const STATUS_ACTIVE = 10;
 
+    public $document;
 
     /**
      * {@inheritdoc}
@@ -47,7 +51,6 @@ class History extends \yii\db\ActiveRecord
             [['title', 'slug', 'description', 'type', 'file_id', 'documents', 'anons', 'content', 'lang', 'lang_hash', 'views', 'deleted_at'], 'default', 'value' => null],
             [['status'], 'default', 'value' => 9],
             [['type', 'file_id', 'lang', 'status', 'views', 'created_at', 'updated_at', 'deleted_at'], 'integer'],
-            [['created_at', 'updated_at'], 'required'],
             [['title', 'slug', 'description', 'documents', 'anons', 'content'], 'string', 'max' => 255],
             [['lang_hash'], 'string', 'max' => 32],
             [['file_id'], 'exist', 'skipOnError' => true, 'targetClass' => File::class, 'targetAttribute' => ['file_id' => 'id']],

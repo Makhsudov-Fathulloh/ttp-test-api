@@ -27,8 +27,8 @@ class m250314_211152_create_history_table extends Migration
             'status' => $this->integer()->defaultValue(9),
             'views' => $this->integer(),
 
-            'created_at' => $this->integer()->notNull(),
-            'updated_at' => $this->integer()->notNull(),
+            'created_at' => $this->integer(),
+            'updated_at' => $this->integer(),
             'deleted_at' => $this->integer(),
         ]);
 

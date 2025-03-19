@@ -23,11 +23,13 @@ use Yii;
  *
  * @property File $file
  */
-class Setting extends \yii\db\ActiveRecord
+class Setting extends UploadFile
 {
     const STATUS_DELETED = 0;
     const STATUS_INACTIVE = 9;
     const STATUS_ACTIVE = 10;
+
+    public $document;
 
     /**
      * {@inheritdoc}
@@ -46,7 +48,6 @@ class Setting extends \yii\db\ActiveRecord
             [['title', 'alias', 'value', 'link', 'file_id', 'lang', 'lang_hash', 'sort', 'deleted_at'], 'default', 'value' => null],
             [['status'], 'default', 'value' => 9],
             [['file_id', 'lang', 'sort', 'status', 'created_at', 'updated_at', 'deleted_at'], 'integer'],
-            [['created_at', 'updated_at'], 'required'],
             [['title', 'alias', 'value', 'link'], 'string', 'max' => 255],
             [['lang_hash'], 'string', 'max' => 32],
             [['file_id'], 'exist', 'skipOnError' => true, 'targetClass' => File::class, 'targetAttribute' => ['file_id' => 'id']],

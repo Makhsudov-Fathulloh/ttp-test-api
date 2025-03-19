@@ -24,8 +24,8 @@ class m250315_142630_create_setting_table extends Migration
             'sort' => $this->integer(),
             'status' => $this->integer()->defaultValue(9),
 
-            'created_at' => $this->integer()->notNull(),
-            'updated_at' => $this->integer()->notNull(),
+            'created_at' => $this->integer(),
+            'updated_at' => $this->integer(),
             'deleted_at' => $this->integer(),
         ]);
 

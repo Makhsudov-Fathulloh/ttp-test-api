@@ -3,6 +3,8 @@
 namespace common\models;
 
 use Yii;
+use yii\behaviors\TimestampBehavior;
+use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
 
 /**
@@ -32,6 +34,19 @@ class Widget extends \yii\db\ActiveRecord
     public static function tableName()
     {
         return 'widget';
+    }
+
+    public function behaviors()
+    {
+        return [
+            'date_filter' => [
+                'class' => TimestampBehavior::class,
+                'attributes' => [
+                    ActiveRecord::EVENT_BEFORE_INSERT => ['created_at', 'updated_at', 'published_at'],
+                    ActiveRecord::EVENT_BEFORE_UPDATE => ['updated_at'],
+                ],
+            ]
+        ];
     }
 
     /**

@@ -15,26 +15,8 @@ use yii\web\UploadedFile;
 /**
  * WidgetItemController implements the CRUD actions for WidgetItem model.
  */
-class WidgetItemController extends Controller
+class WidgetItemController extends ModuleController
 {
-    /**
-     * @inheritDoc
-     */
-    public function behaviors()
-    {
-        return array_merge(
-            parent::behaviors(),
-            [
-                'verbs' => [
-                    'class' => VerbFilter::class,
-                    'actions' => [
-                        'delete' => ['POST'],
-                    ],
-                ],
-            ]
-        );
-    }
-
     /**
      * Lists all WidgetItem models.
      *

@@ -34,11 +34,36 @@ $this->params['breadcrumbs'][] = $this->title;
             'alias',
             'value',
             'link',
+
             'file_id',
+//            [
+//                'attribute' => 'file_id',
+//                'format' => 'html',
+//                'value' => function ($model) {
+//                    return $model->file->path
+//                        ? Html::img($model->file->path, ['width' => '70px'])
+//                        : 'No image';
+//                }
+//            ],
+
             'sort',
-            'status',
             [
-                'class' => ActionColumn::className(),
+                'attribute' => 'status',
+                'filter' => Html::activeDropDownList(
+                    $searchModel,
+                    'status',
+                    [
+                        Setting::STATUS_ACTIVE => 'Активный',
+                        Setting::STATUS_INACTIVE => 'Неактивный',
+                        Setting::STATUS_DELETED => 'Удаленный'
+                    ],
+                    ['class' => 'form-control selectpicker', 'style' => 'width:100%', 'data-style' => "form-control"]
+                ),
+                'value' => function ($model) {
+                    return $model->status == Setting::STATUS_ACTIVE ? 'Активный' : ($model->status == Setting::STATUS_INACTIVE ? 'Неактивный' : 'Удаленный');
+                }
+            ],            [
+                'class' => ActionColumn::class,
                 'urlCreator' => function ($action, Setting $model, $key, $index, $column) {
                     return Url::toRoute([$action, 'id' => $model->id]);
                  }

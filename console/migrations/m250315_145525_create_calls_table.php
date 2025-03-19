@@ -16,8 +16,8 @@ class m250315_145525_create_calls_table extends Migration
             'id' => $this->primaryKey(),
             'count' => $this->integer(),
             'ball' => $this->integer(),
-            'created_at' => $this->integer()->notNull(),
-            'updated_at' => $this->integer()->notNull(),
+            'created_at' => $this->integer(),
+            'updated_at' => $this->integer(),
         ]);
     }
 

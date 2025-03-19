@@ -13,26 +13,8 @@ use yii\web\UploadedFile;
 /**
  * BannerController implements the CRUD actions for Banner model.
  */
-class BannerController extends Controller
+class BannerController extends ModuleController
 {
-    /**
-     * @inheritDoc
-     */
-    public function behaviors()
-    {
-        return array_merge(
-            parent::behaviors(),
-            [
-                'verbs' => [
-                    'class' => VerbFilter::class,
-                    'actions' => [
-                        'delete' => ['POST'],
-                    ],
-                ],
-            ]
-        );
-    }
-
     /**
      * Lists all Banner models.
      *
@@ -128,10 +110,6 @@ class BannerController extends Controller
 
             if ($model->save(false)) {
                 return $this->redirect(['view', 'id' => $model->id]);
-            }
-
-            if (Yii::$app->request->post('returnUrl')) {
-                return $this->redirect(Yii::$app->request->post('returnUrl'));
             }
         }
 

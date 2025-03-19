@@ -38,8 +38,7 @@ use yii\widgets\ActiveForm;
             'showUpload' => false,
             'allowedFileExtensions' => ['jpg', 'png', 'pdf', 'docx'],
         ],
-    ]);
-    ?>
+    ]); ?>
 
     <?= $form->field($model, 'sort')->textInput() ?>
 

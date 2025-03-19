@@ -1,5 +1,8 @@
 <?php
 
+use common\models\History;
+use kartik\file\FileInput;
+use mihaildev\ckeditor\CKEditor;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -14,21 +17,31 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'description')->textInput(['maxlength' => true]) ?>
-
+    <?= $form->field($model, 'description')->widget(CKEditor::class, [
+        'options' => ['rows' => 6],
+    ]) ?>
     <?= $form->field($model, 'type')->textInput() ?>
 
-    <?= $form->field($model, 'file_id')->textInput() ?>
+    <?= $form->field($model, 'document')->widget(FileInput::class, [
+        'options' => ['multiple' => false],
+        'pluginOptions' => [
+            'showUpload' => false,
+            'allowedFileExtensions' => ['jpg', 'png', 'pdf', 'docx'],
+        ],
+    ]); ?>
 
     <?= $form->field($model, 'documents')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'anons')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'content')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'status')->textInput() ?>
-
-    <?= $form->field($model, 'views')->textInput() ?>
+    <?= $form->field($model, 'content')->widget(CKEditor::class, [
+        'options' => ['rows' => 6],
+    ]) ?>
+    <?= $form->field($model, 'status')->dropDownList([
+        History::STATUS_ACTIVE => 'Активный',
+        History::STATUS_INACTIVE => 'Неактивный',
+        History::STATUS_DELETED => 'Удаленный'
+    ], ['class' => 'form-control selectpicker', 'style' => 'width:100%', 'data-style' => "form-control"]) ?>
     <br>
 
     <div class="form-group">

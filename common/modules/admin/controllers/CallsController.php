@@ -12,26 +12,8 @@ use yii\filters\VerbFilter;
 /**
  * CallsController implements the CRUD actions for Calls model.
  */
-class CallsController extends Controller
+class CallsController extends ModuleController
 {
-    /**
-     * @inheritDoc
-     */
-    public function behaviors()
-    {
-        return array_merge(
-            parent::behaviors(),
-            [
-                'verbs' => [
-                    'class' => VerbFilter::class,
-                    'actions' => [
-                        'delete' => ['POST'],
-                    ],
-                ],
-            ]
-        );
-    }
-
     /**
      * Lists all Calls models.
      *

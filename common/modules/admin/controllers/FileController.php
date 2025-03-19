@@ -13,26 +13,8 @@ use yii\filters\VerbFilter;
 /**
  * FileController implements the CRUD actions for File model.
  */
-class FileController extends Controller
+class FileController extends ModuleController
 {
-    /**
-     * @inheritDoc
-     */
-    public function behaviors()
-    {
-        return array_merge(
-            parent::behaviors(),
-            [
-                'verbs' => [
-                    'class' => VerbFilter::class,
-                    'actions' => [
-                        'delete' => ['POST'],
-                    ],
-                ],
-            ]
-        );
-    }
-
     /**
      * Lists all File models.
      *

@@ -1,5 +1,7 @@
 <?php
 
+use common\models\Setting;
+use kartik\file\FileInput;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -20,11 +22,21 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'link')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'file_id')->textInput() ?>
+    <?= $form->field($model, 'document')->widget(FileInput::class, [
+        'options' => ['multiple' => false],
+        'pluginOptions' => [
+            'showUpload' => false,
+            'allowedFileExtensions' => ['jpg', 'png', 'pdf', 'docx'],
+        ],
+    ]); ?>
 
     <?= $form->field($model, 'sort')->textInput() ?>
 
-    <?= $form->field($model, 'status')->textInput() ?>
+    <?= $form->field($model, 'status')->dropDownList([
+        Setting::STATUS_ACTIVE => 'Активный',
+        Setting::STATUS_INACTIVE => 'Неактивный',
+        Setting::STATUS_DELETED => 'Удаленный'
+    ], ['class' => 'form-control selectpicker', 'style' => 'width:100%', 'data-style' => "form-control"]) ?>
     <br>
 
     <div class="form-group">

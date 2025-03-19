@@ -3,6 +3,8 @@
 namespace common\models;
 
 use Yii;
+use yii\behaviors\TimestampBehavior;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "calls".
@@ -23,6 +25,19 @@ class Calls extends \yii\db\ActiveRecord
         return 'calls';
     }
 
+    public function behaviors()
+    {
+        return [
+            'date_filter' => [
+                'class' => TimestampBehavior::class,
+                'attributes' => [
+                    ActiveRecord::EVENT_BEFORE_INSERT => ['created_at', 'updated_at', 'published_at'],
+                    ActiveRecord::EVENT_BEFORE_UPDATE => ['updated_at'],
+                ],
+            ]
+        ];
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -31,7 +46,6 @@ class Calls extends \yii\db\ActiveRecord
         return [
             [['count', 'ball'], 'default', 'value' => null],
             [['count', 'ball', 'created_at', 'updated_at'], 'integer'],
-            [['created_at', 'updated_at'], 'required'],
         ];
     }
 

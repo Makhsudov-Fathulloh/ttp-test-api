@@ -42,6 +42,7 @@ AppAsset::register($this);
         ['label' => 'Banner', 'url' => ['/admin/banner']],
         ['label' => 'Widget', 'url' => ['/admin/widget']],
         ['label' => 'WidgetItem', 'url' => ['/admin/widget-item']],
+        ['label' => 'History', 'url' => ['/admin/history']],
         ['label' => 'Post', 'url' => ['/admin/post']],
         ['label' => 'Region', 'url' => ['/admin/region']],
         ['label' => 'Station', 'url' => ['/admin/station']],
