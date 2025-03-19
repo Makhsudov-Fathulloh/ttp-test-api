@@ -103,7 +103,6 @@ class Menu extends \yii\db\ActiveRecord
     }
 
     /**
-     * @param null $id
      * @return array
      */
     public static function getMenuList()

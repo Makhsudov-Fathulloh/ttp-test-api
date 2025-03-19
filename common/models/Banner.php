@@ -24,11 +24,13 @@ use Yii;
  *
  * @property File $file
  */
-class Banner extends \yii\db\ActiveRecord
+class Banner extends UploadFile
 {
     const STATUS_DELETED = 0;
     const STATUS_INACTIVE = 9;
     const STATUS_ACTIVE = 10;
+
+    public $document;
 
     /**
      * {@inheritdoc}
@@ -46,7 +48,7 @@ class Banner extends \yii\db\ActiveRecord
         return [
             [['slug', 'sort', 'lang', 'lang_hash', 'file_id', 'target', 'deleted_at'], 'default', 'value' => null],
             [['status'], 'default', 'value' => 9],
-            [['title', 'link', 'created_at', 'updated_at'], 'required'],
+            [['title', 'link'], 'required'],
             [['sort', 'lang', 'file_id', 'target', 'status', 'created_at', 'updated_at', 'deleted_at'], 'integer'],
             [['title', 'slug', 'link'], 'string', 'max' => 255],
             [['lang_hash'], 'string', 'max' => 32],

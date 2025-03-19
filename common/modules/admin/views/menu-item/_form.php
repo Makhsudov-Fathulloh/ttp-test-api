@@ -44,8 +44,11 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'sort')->textInput() ?>
 
     <?= $form->field($model, 'menu_id_parent_id')->widget(Select2::class, [
-        'data' => $menuItems = $model->menu_id ? \common\models\MenuItem::getMenuItemList($model->menu_id, $model->id) : [],
-        'options' => ['placeholder' => 'Select MenuItem...'],
+        'data' => $model->menu_id ? \common\models\MenuItem::getMenuItemList($model->menu_id, $model->id) : [],
+        'options' => [
+            'placeholder' => 'Select MenuItem...',
+            'disabled' => !$model->menu_id
+        ],
         'pluginOptions' => [
             'allowClear' => true,
             'multiple' => false

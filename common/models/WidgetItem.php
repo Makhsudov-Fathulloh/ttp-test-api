@@ -3,6 +3,7 @@
 namespace common\models;
 
 use Yii;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "widget_items".
@@ -25,9 +26,13 @@ use Yii;
  * @property Widget $widget
  * @property WidgetItem[] $widgetItems
  */
-class WidgetItem extends \yii\db\ActiveRecord
+class WidgetItem extends UploadFile
 {
+    const STATUS_DELETED = 0;
+    const STATUS_INACTIVE = 9;
+    const STATUS_ACTIVE = 10;
 
+    public $document;
 
     /**
      * {@inheritdoc}
@@ -45,7 +50,7 @@ class WidgetItem extends \yii\db\ActiveRecord
         return [
             [['title', 'description', 'secondary', 'file_id', 'sort', 'parent_id', 'deleted_at'], 'default', 'value' => null],
             [['status'], 'default', 'value' => 9],
-            [['widget_id', 'created_at', 'updated_at'], 'required'],
+            [['widget_id'], 'required'],
             [['widget_id', 'file_id', 'sort', 'parent_id', 'status', 'created_at', 'updated_at', 'deleted_at'], 'integer'],
             [['title', 'description', 'secondary'], 'string', 'max' => 255],
             [['file_id'], 'exist', 'skipOnError' => true, 'targetClass' => File::class, 'targetAttribute' => ['file_id' => 'id']],
@@ -90,7 +95,7 @@ class WidgetItem extends \yii\db\ActiveRecord
      *
      * @return \yii\db\ActiveQuery|\common\models\query\WidgetItemQuery
      */
-    public function getParent()
+    public function getParentId()
     {
         return $this->hasOne(WidgetItem::class, ['id' => 'parent_id']);
     }
@@ -122,6 +127,21 @@ class WidgetItem extends \yii\db\ActiveRecord
     public static function find()
     {
         return new \common\models\query\WidgetItemQuery(get_called_class());
+    }
+
+    /**
+     * @param null $id
+     * @return array
+     */
+    public static function getWidgetItemList($widgetId, $excludeId = null)
+    {
+        $query = static::find()->where(['widget_id' => $widgetId]);
+
+        if ($excludeId) {
+            $query->andWhere(['!=', 'id', $excludeId]);
+        }
+
+        return ArrayHelper::map($query->asArray()->all(), 'id', 'title');
     }
 
 }

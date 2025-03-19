@@ -24,8 +24,8 @@ class m250314_143053_create_banner_table extends Migration
             'target' => $this->integer(),
             'status' => $this->integer()->defaultValue(9),
 
-            'created_at' => $this->integer()->notNull(),
-            'updated_at' => $this->integer()->notNull(),
+            'created_at' => $this->integer(),
+            'updated_at' => $this->integer(),
             'deleted_at' => $this->integer(),
         ]);
 

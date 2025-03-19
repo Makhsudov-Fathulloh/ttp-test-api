@@ -112,7 +112,11 @@ class WidgetController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $model = $this->findModel($id);
+        $model->status = Widget::STATUS_DELETED;
+        $model->deleted_at = date('U');
+        $model->save();
+
 
         return $this->redirect(['index']);
     }

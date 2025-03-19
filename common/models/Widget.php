@@ -3,6 +3,7 @@
 namespace common\models;
 
 use Yii;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "widget".
@@ -42,7 +43,6 @@ class Widget extends \yii\db\ActiveRecord
             [['title', 'alias', 'type', 'lang', 'lang_hash'], 'default', 'value' => null],
             [['status'], 'default', 'value' => 9],
             [['lang', 'status', 'created_at', 'updated_at'], 'integer'],
-            [['created_at', 'updated_at'], 'required'],
             [['title', 'alias', 'type'], 'string', 'max' => 255],
             [['lang_hash'], 'string', 'max' => 32],
         ];
@@ -83,6 +83,16 @@ class Widget extends \yii\db\ActiveRecord
     public static function find()
     {
         return new \common\models\query\WidgetQuery(get_called_class());
+    }
+
+    /**
+     * @return array
+     */
+    public static function getWidgetList()
+    {
+        return ArrayHelper::map(static::find()->all(), 'id', function ($model) {
+            return $model->title . ' (' . $model->alias . ')';
+        });
     }
 
 }

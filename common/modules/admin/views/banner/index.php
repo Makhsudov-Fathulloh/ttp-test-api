@@ -35,8 +35,33 @@ $this->params['breadcrumbs'][] = $this->title;
             'link',
             'sort',
             'file_id',
+//            [
+//                'attribute' => 'file_id',
+//                'format' => 'html',
+//                'value' => function ($model) {
+//                    return $model->file->path
+//                        ? Html::img($model->file->path, ['width' => '70px'])
+//                        : 'No image';
+//                }
+//            ],
+
             //'target',
-            'status',
+            [
+                'attribute' => 'status',
+                'filter' => Html::activeDropDownList(
+                    $searchModel,
+                    'status',
+                    [
+                        Banner::STATUS_ACTIVE => 'Активный',
+                        Banner::STATUS_INACTIVE => 'Неактивный',
+                        Banner::STATUS_DELETED => 'Удаленный'
+                    ],
+                    ['class' => 'form-control selectpicker', 'style' => 'width:100%', 'data-style' => "form-control"]
+                ),
+                'value' => function ($model) {
+                    return $model->status == Banner::STATUS_ACTIVE ? 'Активный' : ($model->status == Banner::STATUS_INACTIVE ? 'Неактивный' : 'Удаленный');
+                }
+            ],
             [
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, Banner $model, $key, $index, $column) {
@@ -45,6 +70,5 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ],
     ]); ?>
-
 
 </div>

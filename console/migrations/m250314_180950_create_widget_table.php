@@ -21,8 +21,8 @@ class m250314_180950_create_widget_table extends Migration
             'lang_hash' => $this->string(32),
             'status' => $this->integer()->defaultValue(9),
 
-            'created_at' => $this->integer()->notNull(),
-            'updated_at' => $this->integer()->notNull(),
+            'created_at' => $this->integer(),
+            'updated_at' => $this->integer(),
         ]);
     }
 

@@ -62,6 +62,7 @@ class MenuItemController extends Controller
             'id',
             'title'
         );
+
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,

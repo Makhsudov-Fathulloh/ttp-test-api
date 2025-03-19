@@ -2,12 +2,15 @@
 
 namespace common\modules\admin\controllers;
 
+use common\models\Widget;
 use common\models\WidgetItem;
 use common\models\search\WidgetItemSearch;
 use Yii;
+use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
 
 /**
  * WidgetItemController implements the CRUD actions for WidgetItem model.
@@ -42,9 +45,30 @@ class WidgetItemController extends Controller
         $searchModel = new WidgetItemSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
+        $widgetId = ArrayHelper::map(
+                Widget::find()
+                ->select(['id', 'title'])
+                ->asArray()
+                ->all(),
+            'id',
+            'title'
+        );
+
+        $parentId = ArrayHelper::map(
+                WidgetItem::find()
+                ->where(['IS NOT', 'parent_id', null])
+                ->select(['id', 'title'])
+                ->asArray()
+                ->all(),
+            'id',
+            'title'
+        );
+
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'widgetId' => $widgetId,
+            'parentId' => $parentId,
         ]);
     }
 
@@ -70,12 +94,25 @@ class WidgetItemController extends Controller
     {
         $model = new WidgetItem();
 
-        if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
+        if ($this->request->isPost && $model->load($this->request->post())) {
+            $model->document = UploadedFile::getInstance($model, 'document');
+
+            if (!$model->validate()) {
+                Yii::$app->session->setFlash('error', json_encode($model->errors));
+                return $this->render('create', ['model' => $model]);
+            }
+
+            if (!$model->uploadFile()) {
+                return $this->render('create', ['model' => $model]);
+            }
+
+            if ($model->save(false)) {
                 return $this->redirect(['view', 'id' => $model->id]);
             }
-        } else {
-            $model->loadDefaultValues();
+
+            if (Yii::$app->request->post('returnUrl')) {
+                return $this->redirect(Yii::$app->request->post('returnUrl'));
+            }
         }
 
         return $this->render('create', [
@@ -93,9 +130,36 @@ class WidgetItemController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        if (!$model) {
+            throw new NotFoundHttpException('Model topilmadi.');
+        }
 
-        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        $oldFile = $model->document;
+
+        if ($this->request->isPost  && $model->load($this->request->post())) {
+            $model->document = UploadedFile::getInstance($model, 'document');
+
+            if (!$model->validate()) {
+                Yii::$app->session->setFlash('error', json_encode($model->errors));
+                return $this->render('update', ['model' => $model]);
+            }
+
+            if ($model->document) {
+                if (!$model->uploadFile()) {
+                    return $this->render('update', ['model' => $model]);
+                }
+                @unlink(Yii::getAlias('@static/uploads/') . $oldFile);
+            } else {
+                $model->document = $oldFile;
+            }
+
+            if ($model->save(false)) {
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
+
+            if (Yii::$app->request->post('returnUrl')) {
+                return $this->redirect(Yii::$app->request->post('returnUrl'));
+            }
         }
 
         return $this->render('update', [
@@ -112,7 +176,10 @@ class WidgetItemController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $model = $this->findModel($id);
+        $model->status = WidgetItem::STATUS_DELETED;
+        $model->deleted_at = date('U');
+        $model->save();
 
         return $this->redirect(['index']);
     }

@@ -33,9 +33,25 @@ $this->params['breadcrumbs'][] = $this->title;
             'title',
             'alias',
             'type',
-            'status',
             [
-                'class' => ActionColumn::className(),
+                'attribute' => 'status',
+                'filter' => Html::activeDropDownList(
+                    $searchModel,
+                    'status',
+                    [
+                        Widget::STATUS_ACTIVE => 'Активный',
+                        Widget::STATUS_INACTIVE => 'Неактивный',
+                        Widget::STATUS_DELETED => 'Удаленный'
+                    ],
+                    ['class' => 'form-control selectpicker', 'style' => 'width:100%', 'data-style' => "form-control"]
+                ),
+                'value' => function ($model) {
+                    return $model->status == Widget::STATUS_ACTIVE ? 'Активный' : ($model->status == Widget::STATUS_INACTIVE ? 'Неактивный' : 'Удаленный');
+                }
+            ],
+
+            [
+                'class' => ActionColumn::class,
                 'urlCreator' => function ($action, Widget $model, $key, $index, $column) {
                     return Url::toRoute([$action, 'id' => $model->id]);
                  }
