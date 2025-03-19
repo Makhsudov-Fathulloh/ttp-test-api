@@ -3,6 +3,9 @@
 namespace common\models;
 
 use Yii;
+use yii\behaviors\TimestampBehavior;
+use yii\db\ActiveRecord;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "region".
@@ -32,6 +35,19 @@ class Region extends \yii\db\ActiveRecord
         return 'region';
     }
 
+    public function behaviors()
+    {
+        return [
+            'date_filter' => [
+                'class' => TimestampBehavior::class,
+                'attributes' => [
+                    ActiveRecord::EVENT_BEFORE_INSERT => ['created_at', 'updated_at'],
+                    ActiveRecord::EVENT_BEFORE_UPDATE => ['updated_at'],
+                ],
+            ]
+        ];
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -41,7 +57,6 @@ class Region extends \yii\db\ActiveRecord
             [['title', 'code', 'country_id', 'deleted_at'], 'default', 'value' => null],
             [['status'], 'default', 'value' => 9],
             [['code', 'country_id', 'status', 'created_at', 'updated_at', 'deleted_at'], 'integer'],
-            [['created_at', 'updated_at'], 'required'],
             [['title'], 'string', 'max' => 255],
         ];
     }
@@ -80,6 +95,11 @@ class Region extends \yii\db\ActiveRecord
     public static function find()
     {
         return new \common\models\query\RegionQuery(get_called_class());
+    }
+
+    public static function getRegionList()
+    {
+        return ArrayHelper::map(static::find()->all(), 'id', 'title');
     }
 
 }

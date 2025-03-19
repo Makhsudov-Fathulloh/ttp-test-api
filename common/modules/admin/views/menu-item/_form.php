@@ -36,7 +36,7 @@ use yii\widgets\ActiveForm;
         'options' => ['multiple' => false],
         'pluginOptions' => [
             'showUpload' => false,
-            'allowedFileExtensions' => ['jpg', 'png', 'pdf', 'docx'],
+            'allowedFileExtensions' => ['jpg', 'png', 'svg', 'pdf', 'docx'],
         ],
     ]); ?>
 

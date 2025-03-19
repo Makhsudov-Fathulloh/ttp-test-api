@@ -7,9 +7,7 @@ use common\models\WidgetItem;
 use common\models\search\WidgetItemSearch;
 use Yii;
 use yii\helpers\ArrayHelper;
-use yii\web\Controller;
 use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
 
 /**

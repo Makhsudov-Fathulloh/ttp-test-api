@@ -6,9 +6,7 @@ use common\models\File;
 use common\models\search\FileSearch;
 use Yii;
 use yii\helpers\ArrayHelper;
-use yii\web\Controller;
 use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
 
 /**
  * FileController implements the CRUD actions for File model.

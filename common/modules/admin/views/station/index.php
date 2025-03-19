@@ -36,13 +36,48 @@ $this->params['breadcrumbs'][] = $this->title;
             'phone',
             'fax',
             'email:email',
-            'region_id',
+            [
+                'attribute' => 'region_id',
+                'value' => 'region.title',
+                'filter' => Html::activeDropDownList(
+                    $searchModel,
+                    'region_id', $regionId,
+                    ['class' => 'form-control selectpicker', 'style' => 'width:100%', 'data-style' => "form-control", 'prompt' => 'Выберите регион']
+                ),
+            ],
+
             'file_id',
+//            [
+//                'attribute' => 'file_id',
+//                'format' => 'html',
+//                'value' => function ($model) {
+//                    return $model->file->path
+//                        ? Html::img($model->file->path, ['width' => '70px'])
+//                        : 'No image';
+//                }
+//            ],
+
             'lat',
             'long',
-            'status',
             [
-                'class' => ActionColumn::className(),
+                'attribute' => 'status',
+                'filter' => Html::activeDropDownList(
+                    $searchModel,
+                    'status',
+                    [
+                        Station::STATUS_ACTIVE => 'Активный',
+                        Station::STATUS_INACTIVE => 'Неактивный',
+                        Station::STATUS_DELETED => 'Удаленный'
+                    ],
+                    ['class' => 'form-control selectpicker', 'style' => 'width:100%', 'data-style' => "form-control"]
+                ),
+                'value' => function ($model) {
+                    return $model->status == Station::STATUS_ACTIVE ? 'Активный' : ($model->status == Station::STATUS_INACTIVE ? 'Неактивный' : 'Удаленный');
+                }
+            ],
+
+            [
+                'class' => ActionColumn::class,
                 'urlCreator' => function ($action, Station $model, $key, $index, $column) {
                     return Url::toRoute([$action, 'id' => $model->id]);
                  }

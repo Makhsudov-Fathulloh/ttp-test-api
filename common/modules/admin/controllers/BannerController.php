@@ -5,9 +5,7 @@ namespace common\modules\admin\controllers;
 use common\models\Banner;
 use common\models\search\BannerSearch;
 use Yii;
-use yii\web\Controller;
 use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
 
 /**

@@ -28,11 +28,13 @@ use Yii;
  * @property File $file
  * @property Region $region
  */
-class Station extends \yii\db\ActiveRecord
+class Station extends UploadFile
 {
     const STATUS_DELETED = 0;
     const STATUS_INACTIVE = 9;
     const STATUS_ACTIVE = 10;
+
+    public $document;
 
     /**
      * {@inheritdoc}
@@ -51,7 +53,6 @@ class Station extends \yii\db\ActiveRecord
             [['title', 'slug', 'address', 'phone', 'fax', 'email', 'region_id', 'file_id', 'lang', 'lang_hash', 'lat', 'long', 'deleted_at'], 'default', 'value' => null],
             [['status'], 'default', 'value' => 9],
             [['region_id', 'file_id', 'lang', 'status', 'created_at', 'updated_at', 'deleted_at'], 'integer'],
-            [['created_at', 'updated_at'], 'required'],
             [['title', 'slug', 'address', 'fax', 'email', 'lat', 'long'], 'string', 'max' => 255],
             [['phone'], 'string', 'max' => 16],
             [['lang_hash'], 'string', 'max' => 32],

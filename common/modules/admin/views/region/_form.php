@@ -1,5 +1,6 @@
 <?php
 
+use common\models\Region;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -18,7 +19,11 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'country_id')->textInput() ?>
 
-    <?= $form->field($model, 'status')->textInput() ?>
+    <?= $form->field($model, 'status')->dropDownList([
+        Region::STATUS_ACTIVE => 'Активный',
+        Region::STATUS_INACTIVE => 'Неактивный',
+        Region::STATUS_DELETED => 'Удаленный'
+    ], ['class' => 'form-control selectpicker', 'style' => 'width:100%', 'data-style' => "form-control"]) ?>
     <br>
 
     <div class="form-group">

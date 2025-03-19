@@ -33,9 +33,25 @@ $this->params['breadcrumbs'][] = $this->title;
             'title',
             'code',
             'country_id',
-            'status',
             [
-                'class' => ActionColumn::className(),
+                'attribute' => 'status',
+                'filter' => Html::activeDropDownList(
+                    $searchModel,
+                    'status',
+                    [
+                        Region::STATUS_ACTIVE => 'Активный',
+                        Region::STATUS_INACTIVE => 'Неактивный',
+                        Region::STATUS_DELETED => 'Удаленный'
+                    ],
+                    ['class' => 'form-control selectpicker', 'style' => 'width:100%', 'data-style' => "form-control"]
+                ),
+                'value' => function ($model) {
+                    return $model->status == Region::STATUS_ACTIVE ? 'Активный' : ($model->status == Region::STATUS_INACTIVE ? 'Неактивный' : 'Удаленный');
+                }
+            ],
+
+            [
+                'class' => ActionColumn::class,
                 'urlCreator' => function ($action, Region $model, $key, $index, $column) {
                     return Url::toRoute([$action, 'id' => $model->id]);
                  }

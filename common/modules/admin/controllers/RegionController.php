@@ -5,33 +5,13 @@ namespace common\modules\admin\controllers;
 use common\models\Region;
 use common\models\search\RegionSearch;
 use Yii;
-use yii\web\Controller;
 use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
 
 /**
  * RegionController implements the CRUD actions for Region model.
  */
-class RegionController extends Controller
+class RegionController extends ModuleController
 {
-    /**
-     * @inheritDoc
-     */
-    public function behaviors()
-    {
-        return array_merge(
-            parent::behaviors(),
-            [
-                'verbs' => [
-                    'class' => VerbFilter::class,
-                    'actions' => [
-                        'delete' => ['POST'],
-                    ],
-                ],
-            ]
-        );
-    }
-
     /**
      * Lists all Region models.
      *
@@ -112,7 +92,10 @@ class RegionController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $model = $this->findModel($id);
+        $model->status = Region::STATUS_DELETED;
+        $model->deleted_at = date('U');
+        $model->save();
 
         return $this->redirect(['index']);
     }

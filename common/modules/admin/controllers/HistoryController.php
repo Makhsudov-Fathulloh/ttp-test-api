@@ -5,9 +5,7 @@ namespace common\modules\admin\controllers;
 use common\models\History;
 use common\models\search\HistorySearch;
 use Yii;
-use yii\web\Controller;
 use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
 
 /**
@@ -127,7 +125,10 @@ class HistoryController extends ModuleController
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $model = $this->findModel($id);
+        $model->status = History::STATUS_DELETED;
+        $model->deleted_at = date('U');
+        $model->save();
 
         return $this->redirect(['index']);
     }

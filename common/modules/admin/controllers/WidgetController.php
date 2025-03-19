@@ -5,9 +5,7 @@ namespace common\modules\admin\controllers;
 use common\models\Widget;
 use common\models\search\WidgetSearch;
 use Yii;
-use yii\web\Controller;
 use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
 
 /**
  * WidgetController implements the CRUD actions for Widget model.

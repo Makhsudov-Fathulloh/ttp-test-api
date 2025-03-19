@@ -6,9 +6,7 @@ use common\models\MenuItem;
 use common\models\search\MenuItemSearch;
 use Yii;
 use yii\helpers\ArrayHelper;
-use yii\web\Controller;
 use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
 
 /**
