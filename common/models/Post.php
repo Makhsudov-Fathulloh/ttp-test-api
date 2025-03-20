@@ -2,7 +2,11 @@
 
 namespace common\models;
 
+use common\behaviors\SlugBehavior;
 use Yii;
+use yii\behaviors\TimestampBehavior;
+use yii\db\ActiveRecord;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "post".
@@ -30,11 +34,13 @@ use Yii;
  * @property File $file
  * @property User $user
  */
-class Post extends \yii\db\ActiveRecord
+class Post extends UploadFile
 {
     const STATUS_DELETED = 0;
     const STATUS_INACTIVE = 9;
     const STATUS_ACTIVE = 10;
+
+    public $document;
 
     /**
      * {@inheritdoc}
@@ -44,6 +50,24 @@ class Post extends \yii\db\ActiveRecord
         return 'post';
     }
 
+    public function behaviors()
+    {
+        return ArrayHelper::merge(parent::behaviors(), [
+            'date_filter' => [
+                'class' => TimestampBehavior::class,
+                'attributes' => [
+                    ActiveRecord::EVENT_BEFORE_INSERT => ['published_at'],
+                ],
+            ],
+            'slug' => [
+                'class' => SlugBehavior::class,
+                'attribute' => 'slug',
+                'attribute_title' => 'title',
+            ],
+        ]);
+    }
+
+
     /**
      * {@inheritdoc}
      */
@@ -52,8 +76,8 @@ class Post extends \yii\db\ActiveRecord
         return [
             [['title', 'slug', 'description', 'type', 'file_id', 'top', 'user_id', 'video', 'documents', 'content', 'lang', 'lang_hash', 'views', 'deleted_at'], 'default', 'value' => null],
             [['status'], 'default', 'value' => 9],
-            [['type', 'file_id', 'top', 'user_id', 'lang', 'status', 'views', 'published_at', 'created_at', 'updated_at', 'deleted_at'], 'integer'],
-            [['published_at', 'created_at', 'updated_at'], 'required'],
+            [['type', 'file_id', 'top', 'user_id', 'lang', 'status', 'views', 'created_at', 'updated_at', 'deleted_at'], 'integer'],
+            [['published_at'], 'safe'],
             [['title', 'slug', 'description', 'video', 'documents', 'content'], 'string', 'max' => 255],
             [['lang_hash'], 'string', 'max' => 32],
             [['file_id'], 'exist', 'skipOnError' => true, 'targetClass' => File::class, 'targetAttribute' => ['file_id' => 'id']],
@@ -118,4 +142,18 @@ class Post extends \yii\db\ActiveRecord
         return new \common\models\query\PostQuery(get_called_class());
     }
 
+    public function beforeValidate()
+    {
+        if (!empty($this->published_at)) {
+            $this->published_at = strtotime($this->published_at);
+        }
+        return parent::beforeValidate();
+    }
+
+    public function afterFind()
+    {
+        if (!empty($this->published_at)) {
+            $this->published_at = date('d-m-Y', $this->published_at);
+        }
+    }
 }

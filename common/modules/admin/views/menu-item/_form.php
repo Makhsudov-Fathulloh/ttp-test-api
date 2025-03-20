@@ -32,7 +32,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'url')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'document')->widget(FileInput::class, [
+    <?= $form->field($model, 'document')->label('File')->widget(FileInput::class, [
         'options' => ['multiple' => false],
         'pluginOptions' => [
             'showUpload' => false,

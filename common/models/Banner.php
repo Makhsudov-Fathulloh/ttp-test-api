@@ -2,8 +2,10 @@
 
 namespace common\models;
 
+use common\behaviors\SlugBehavior;
 use common\models\query\BannerQuery;
 use Yii;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "banner".
@@ -38,6 +40,17 @@ class Banner extends UploadFile
     public static function tableName()
     {
         return 'banner';
+    }
+
+    public function behaviors()
+    {
+        return ArrayHelper::merge(parent::behaviors(), [
+            'slug' => [
+                'class' => SlugBehavior::class,
+                'attribute' => 'slug',
+                'attribute_title' => 'title',
+            ],
+        ]);
     }
 
     /**

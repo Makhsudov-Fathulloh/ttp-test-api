@@ -2,6 +2,7 @@
 
 namespace common\models;
 
+use common\behaviors\SlugBehavior;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
@@ -18,7 +19,7 @@ class UploadFile extends \yii\db\ActiveRecord
                     ActiveRecord::EVENT_BEFORE_INSERT => ['created_at', 'updated_at'],
                     ActiveRecord::EVENT_BEFORE_UPDATE => ['updated_at'],
                 ],
-            ]
+            ],
         ]);
     }
 

@@ -29,9 +29,9 @@ class m250315_004054_create_post_table extends Migration
             'status' => $this->integer()->defaultValue(9),
             'views' => $this->integer(),
 
-            'published_at' => $this->integer()->notNull(),
-            'created_at' => $this->integer()->notNull(),
-            'updated_at' => $this->integer()->notNull(),
+            'published_at' => $this->integer(),
+            'created_at' => $this->integer(),
+            'updated_at' => $this->integer(),
             'deleted_at' => $this->integer(),
         ]);
 

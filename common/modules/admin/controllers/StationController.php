@@ -66,7 +66,6 @@ class StationController extends ModuleController
             $model->document = UploadedFile::getInstance($model, 'document');
 
             if (!$model->validate()) {
-                Yii::error('Validation Error: ' . json_encode($model->errors), __METHOD__);
                 Yii::$app->session->setFlash('error', json_encode($model->errors));
                 return $this->render('create', ['model' => $model]);
             }

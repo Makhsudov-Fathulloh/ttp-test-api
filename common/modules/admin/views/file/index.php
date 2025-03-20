@@ -17,10 +17,6 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>
-        <?= Html::a(Yii::t('app', 'Create File'), ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
-
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <?= GridView::widget([
@@ -52,6 +48,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'downloads',
             [
                 'class' => ActionColumn::class,
+                'template' => '{view} {delete}',
                 'urlCreator' => function ($action, File $model, $key, $index, $column) {
                     return Url::toRoute([$action, 'id' => $model->id]);
                  }

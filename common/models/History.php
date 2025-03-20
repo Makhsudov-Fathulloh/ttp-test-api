@@ -2,7 +2,9 @@
 
 namespace common\models;
 
+use common\behaviors\SlugBehavior;
 use Yii;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "history".
@@ -40,6 +42,17 @@ class History extends UploadFile
     public static function tableName()
     {
         return 'history';
+    }
+
+    public function behaviors()
+    {
+        return ArrayHelper::merge(parent::behaviors(), [
+            'slug' => [
+                'class' => SlugBehavior::class,
+                'attribute' => 'slug',
+                'attribute_title' => 'title',
+            ],
+        ]);
     }
 
     /**

@@ -5,33 +5,14 @@ namespace common\modules\admin\controllers;
 use common\models\Post;
 use common\models\search\PostSearch;
 use Yii;
-use yii\web\Controller;
 use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
 
 /**
  * PostController implements the CRUD actions for Post model.
  */
-class PostController extends Controller
+class PostController extends ModuleController
 {
-    /**
-     * @inheritDoc
-     */
-    public function behaviors()
-    {
-        return array_merge(
-            parent::behaviors(),
-            [
-                'verbs' => [
-                    'class' => VerbFilter::class,
-                    'actions' => [
-                        'delete' => ['POST'],
-                    ],
-                ],
-            ]
-        );
-    }
-
     /**
      * Lists all Post models.
      *
@@ -70,12 +51,23 @@ class PostController extends Controller
     {
         $model = new Post();
 
-        if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
+        if ($this->request->isPost && $model->load($this->request->post())) {
+            $model->document = UploadedFile::getInstance($model, 'document');
+
+            if (!$model->validate()) {
+                Yii::$app->session->setFlash('error', json_encode($model->errors));
+                return $this->render('create', ['model' => $model]);
+            }
+
+            if (!$model->uploadFile()) {
+                return $this->render('create', ['model' => $model]);
+            }
+
+            $model->user_id = Yii::$app->user->id;
+
+            if ($model->save(false)) {
                 return $this->redirect(['view', 'id' => $model->id]);
             }
-        } else {
-            $model->loadDefaultValues();
         }
 
         return $this->render('create', [
@@ -93,9 +85,34 @@ class PostController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        if (!$model) {
+            throw new NotFoundHttpException('Model topilmadi.');
+        }
 
-        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        $oldFile = $model->document; // Eski faylni saqlab qolish
+
+        if ($this->request->isPost  && $model->load($this->request->post())) {
+            $model->document = UploadedFile::getInstance($model, 'document');
+
+            if (!$model->validate()) {
+                Yii::$app->session->setFlash('error', json_encode($model->errors));
+                return $this->render('update', ['model' => $model]);
+            }
+
+            if ($model->document) {
+                if (!$model->uploadFile()) {
+                    return $this->render('update', ['model' => $model]);
+                }
+                @unlink(Yii::getAlias('@static/uploads/') . $oldFile);
+            } else {
+                $model->document = $oldFile;
+            }
+
+            $model->user_id = Yii::$app->user->id;
+
+            if ($model->save(false)) {
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
         }
 
         return $this->render('update', [
