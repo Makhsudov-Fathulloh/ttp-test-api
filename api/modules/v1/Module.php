@@ -147,6 +147,66 @@ class Module extends \yii\base\Module
                 'DELETE <id:\d+>/delete' => 'delete',
             ]
         ],
+        [
+            'class' => 'yii\rest\UrlRule',
+            'controller' => 'v1/widget',
+            'pluralize' => false,
+            'patterns' => [
+                'OPTIONS <action>' => 'options',
+
+                'GET' => 'index',
+                'GET <id:\d+>' => 'view',
+
+                'POST create' => 'create',
+                'PUT <id:\d+>/update' => 'update',
+                'DELETE <id:\d+>/delete' => 'delete',
+            ]
+        ],
+        [
+            'class' => 'yii\rest\UrlRule',
+            'controller' => 'v1/widget-item',
+            'pluralize' => false,
+            'patterns' => [
+                'OPTIONS <action>' => 'options',
+
+                'GET' => 'index',
+                'GET <id:\d+>' => 'view',
+
+                'POST create' => 'create',
+                'POST <id:\d+>/update' => 'update',
+                'DELETE <id:\d+>/delete' => 'delete',
+            ]
+        ],
+        [
+            'class' => 'yii\rest\UrlRule',
+            'controller' => 'v1/history',
+            'pluralize' => false,
+            'patterns' => [
+                'OPTIONS <action>' => 'options',
+
+                'GET' => 'index',
+                'GET <id:\d+>' => 'view',
+
+                'POST create' => 'create',
+                'POST <id:\d+>/update' => 'update',
+                'DELETE <id:\d+>/delete' => 'delete',
+            ]
+        ],
+        [
+            'class' => 'yii\rest\UrlRule',
+            'controller' => 'v1/post',
+            'pluralize' => false,
+            'patterns' => [
+                'OPTIONS <action>' => 'options',
+
+                'GET' => 'index',
+                'GET <id:\d+>' => 'view',
+
+                'POST create' => 'create',
+                'POST <id:\d+>/update' => 'update',
+                'DELETE <id:\d+>/delete' => 'delete',
+            ]
+        ],
     ];
 
     /**
