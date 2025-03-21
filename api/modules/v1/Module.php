@@ -207,6 +207,64 @@ class Module extends \yii\base\Module
                 'DELETE <id:\d+>/delete' => 'delete',
             ]
         ],
+        [
+            'class' => 'yii\rest\UrlRule',
+            'controller' => 'v1/region',
+            'pluralize' => false,
+            'patterns' => [
+                'OPTIONS <action>' => 'options',
+
+                'GET' => 'index',
+                'GET <id:\d+>' => 'view',
+
+                'POST create' => 'create',
+                'PUT <id:\d+>/update' => 'update',
+                'DELETE <id:\d+>/delete' => 'delete',
+            ]
+        ],
+        [
+            'class' => 'yii\rest\UrlRule',
+            'controller' => 'v1/station',
+            'pluralize' => false,
+            'patterns' => [
+                'OPTIONS <action>' => 'options',
+
+                'GET' => 'index',
+                'GET <id:\d+>' => 'view',
+
+                'POST create' => 'create',
+                'POST <id:\d+>/update' => 'update',
+                'DELETE <id:\d+>/delete' => 'delete',
+            ]
+        ],
+        [
+            'class' => 'yii\rest\UrlRule',
+            'controller' => 'v1/calls',
+            'pluralize' => false,
+            'patterns' => [
+                'OPTIONS <action>' => 'options',
+
+                'GET' => 'index',
+                'GET <id:\d+>' => 'view',
+
+                'POST create' => 'create',
+            ]
+        ],
+        [
+            'class' => 'yii\rest\UrlRule',
+            'controller' => 'v1/setting',
+            'pluralize' => false,
+            'patterns' => [
+                'OPTIONS <action>' => 'options',
+
+                'GET' => 'index',
+                'GET <id:\d+>' => 'view',
+
+                'POST create' => 'create',
+                'PUT <id:\d+>/update' => 'update',
+                'DELETE <id:\d+>/delete' => 'delete',
+            ]
+        ],
     ];
 
     /**
