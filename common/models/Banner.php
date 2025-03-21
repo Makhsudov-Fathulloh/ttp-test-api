@@ -59,9 +59,10 @@ class Banner extends UploadFile
     public function rules()
     {
         return [
+            [['title'], 'required'],
             [['slug', 'sort', 'lang', 'lang_hash', 'file_id', 'target', 'deleted_at'], 'default', 'value' => null],
+            [['link'], 'default', 'value' => '#'],
             [['status'], 'default', 'value' => 9],
-            [['title', 'link'], 'required'],
             [['sort', 'lang', 'file_id', 'target', 'status', 'created_at', 'updated_at', 'deleted_at'], 'integer'],
             [['title', 'slug', 'link'], 'string', 'max' => 255],
             [['lang_hash'], 'string', 'max' => 32],

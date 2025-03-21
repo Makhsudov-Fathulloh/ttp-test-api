@@ -43,7 +43,7 @@ class Module extends \yii\base\Module
             'rules' => [
                 [
                     'allow' => true,
-                    'actions' => ['index', 'create', 'update', 'delete', 'clear-cache'],
+                    'actions' => ['index', 'view', 'create', 'update', 'delete', 'clear-cache'],
                     'roles' => ['@'],
                 ]
             ],
@@ -89,6 +89,62 @@ class Module extends \yii\base\Module
 
                 'GET' => 'index',
                 'GET index' => 'index',
+            ]
+        ],
+        [
+            'class' => 'yii\rest\UrlRule',
+            'controller' => 'v1/file',
+            'pluralize' => false,
+            'patterns' => [
+                'OPTIONS <action>' => 'options',
+
+                'GET' => 'index',
+                'GET index' => 'index',
+            ]
+        ],
+        [
+            'class' => 'yii\rest\UrlRule',
+            'controller' => 'v1/menu',
+            'pluralize' => false,
+            'patterns' => [
+                'OPTIONS <action>' => 'options',
+
+                'GET' => 'index',
+                'GET <id:\d+>' => 'view',
+
+                'POST create' => 'create',
+                'PUT <id:\d+>/update' => 'update',
+                'DELETE <id:\d+>/delete' => 'delete',
+            ]
+        ],
+        [
+            'class' => 'yii\rest\UrlRule',
+            'controller' => 'v1/menu-items',
+            'pluralize' => false,
+            'patterns' => [
+                'OPTIONS <action>' => 'options',
+
+                'GET' => 'index',
+                'GET <id:\d+>' => 'view',
+
+                'POST create' => 'create',
+                'POST <id:\d+>/update' => 'update',
+                'DELETE <id:\d+>/delete' => 'delete',
+            ]
+        ],
+        [
+            'class' => 'yii\rest\UrlRule',
+            'controller' => 'v1/banner',
+            'pluralize' => false,
+            'patterns' => [
+                'OPTIONS <action>' => 'options',
+
+                'GET' => 'index',
+                'GET <id:\d+>' => 'view',
+
+                'POST create' => 'create',
+                'POST <id:\d+>/update' => 'update',
+                'DELETE <id:\d+>/delete' => 'delete',
             ]
         ],
     ];
